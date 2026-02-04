@@ -151,7 +151,7 @@
 
         .option {
             background: white;
-            padding: 15px 60px 15px 15px;
+            padding: 15px 15px 15px 15px;
             border-radius: 10px;
             border: 2px solid #FFD700;
             cursor: pointer;
@@ -165,22 +165,6 @@
             background: #FFF8DC;
             border-color: #DC143C;
             box-shadow: 0 5px 15px rgba(220, 20, 60, 0.3);
-        }
-
-        .option::before {
-            content: '🧧';
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.5em;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-        }
-
-        .option:hover::before, .option.selected::before {
-            opacity: 1;
         }
 
         .option:hover {
@@ -1045,7 +1029,20 @@
 
         function selectOption(optionIndex) {
             answers[currentQuestion] = optionIndex;
-            renderQuestion(); // Re-render to show selected state and enable Next button
+            
+            // Update selected state without re-rendering entire question
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, index) => {
+                if (index === optionIndex) {
+                    option.classList.add('selected');
+                } else {
+                    option.classList.remove('selected');
+                }
+            });
+            
+            // Enable the Next button
+            const nextBtn = document.querySelector('.navigation-buttons .nav-btn:last-child');
+            nextBtn.disabled = false;
         }
 
         function goBack() {
