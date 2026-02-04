@@ -214,27 +214,28 @@
 
         .result-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             background: rgba(255, 249, 230, 0.95);
-            padding: 30px;
+            padding: 20px;
             border-radius: 15px;
         }
 
         .result-label {
-            font-size: 1.2em;
+            font-size: 0.9em;
             color: #8B0000;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         .result-title {
-            font-size: 2.8em;
+            font-size: 1.8em;
             color: #DC143C;
-            margin: 10px 0 5px 0;
+            margin: 5px 0;
             font-weight: 800;
+            line-height: 1.2;
         }
 
         .snack-name {
-            font-size: 1.3em;
+            font-size: 1em;
             color: #8B0000;
             font-style: italic;
         }
@@ -242,14 +243,14 @@
         .result-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 30px;
+            gap: 15px;
+            margin-top: 20px;
         }
 
         .result-card {
             background: rgba(255, 249, 230, 0.95);
-            border-radius: 15px;
-            padding: 25px;
+            border-radius: 12px;
+            padding: 15px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
@@ -265,8 +266,8 @@
 
         .result-card h3 {
             color: #8B0000;
-            font-size: 1.3em;
-            margin-bottom: 15px;
+            font-size: 1em;
+            margin-bottom: 10px;
             text-align: center;
             font-weight: 700;
         }
@@ -274,9 +275,9 @@
         .snack-image-container {
             width: 100%;
             height: 100%;
-            min-height: 300px;
-            border-radius: 15px;
-            border: 4px solid #FFD700;
+            min-height: 180px;
+            border-radius: 12px;
+            border: 3px solid #FFD700;
             background: #FFF;
             display: flex;
             align-items: center;
@@ -292,44 +293,44 @@
         }
 
         .snack-image-fallback {
-            font-size: 6em;
+            font-size: 4em;
             color: #DC143C;
         }
 
         .trait-pills {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 8px;
         }
 
         .trait-pill {
             background: linear-gradient(135deg, #FFE5B4, #FFD700);
-            padding: 14px 20px;
-            border-radius: 25px;
+            padding: 8px 12px;
+            border-radius: 20px;
             color: #8B0000;
             font-weight: 600;
             text-align: center;
-            font-size: 0.95em;
+            font-size: 0.75em;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .description-text {
-            line-height: 1.7;
+            line-height: 1.5;
             color: #2c1810;
             text-align: left;
-            font-size: 1em;
+            font-size: 0.8em;
         }
 
         .compat-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 15px;
+            gap: 12px;
+            margin-top: 10px;
         }
 
         .compat-group h4 {
-            font-size: 1.1em;
-            margin-bottom: 12px;
+            font-size: 0.85em;
+            margin-bottom: 8px;
             text-align: center;
             font-weight: 700;
         }
@@ -345,39 +346,114 @@
         .compat-names {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 6px;
         }
 
         .compat-name {
             background: rgba(255, 255, 255, 0.9);
-            padding: 12px 15px;
-            border-radius: 10px;
+            padding: 8px 10px;
+            border-radius: 8px;
             text-align: center;
-            font-size: 0.95em;
+            font-size: 0.7em;
             color: #2c1810;
             font-weight: 500;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .friends-name {
-            border-left: 4px solid #4CAF50;
+            border-left: 3px solid #4CAF50;
         }
 
         .strangers-name {
-            border-left: 4px solid #F44336;
+            border-left: 3px solid #F44336;
         }
 
-        @media (max-width: 768px) {
-            .result-grid {
-                grid-template-columns: 1fr;
+        @media (min-width: 769px) {
+            .result-header {
+                padding: 30px;
+                margin-bottom: 30px;
             }
-            
-            .compat-grid {
-                grid-template-columns: 1fr;
+
+            .result-label {
+                font-size: 1.2em;
+                margin-bottom: 10px;
+            }
+
+            .result-title {
+                font-size: 2.8em;
+                margin: 10px 0 5px 0;
+            }
+
+            .snack-name {
+                font-size: 1.3em;
+            }
+
+            .result-grid {
+                gap: 20px;
+                margin-top: 30px;
+            }
+
+            .result-card {
+                padding: 25px;
+                border-radius: 15px;
+            }
+
+            .result-card h3 {
+                font-size: 1.3em;
+                margin-bottom: 15px;
             }
 
             .snack-image-container {
-                min-height: 250px;
+                min-height: 300px;
+                border-radius: 15px;
+                border: 4px solid #FFD700;
+            }
+
+            .snack-image-fallback {
+                font-size: 6em;
+            }
+
+            .trait-pills {
+                gap: 12px;
+            }
+
+            .trait-pill {
+                padding: 14px 20px;
+                border-radius: 25px;
+                font-size: 0.95em;
+            }
+
+            .description-text {
+                font-size: 1em;
+                line-height: 1.7;
+            }
+
+            .compat-grid {
+                gap: 20px;
+                margin-top: 15px;
+            }
+
+            .compat-group h4 {
+                font-size: 1.1em;
+                margin-bottom: 12px;
+            }
+
+            .compat-names {
+                gap: 10px;
+            }
+
+            .compat-name {
+                padding: 12px 15px;
+                border-radius: 10px;
+                font-size: 0.95em;
+            }
+
+            .friends-name {
+                border-left: 4px solid #4CAF50;
+            }
+
+            .strangers-name {
+                border-left: 4px solid #F44336;
             }
         }
 
@@ -461,13 +537,12 @@
                     </div>
                 </div>
 
-                <button class="generate-image-btn" onclick="generateShareImage()">📸 Generate Share Image</button>
                 <button class="restart-btn" onclick="restartQuiz()">Take Quiz Again</button>
             </div>
         </div>
     </div>
 
-    <canvas id="shareCanvas" width="1080" height="1920"></canvas>
+    <canvas id="shareCanvas" width="1080" height="1920" style="display: none;"></canvas>
 
     <script>
         const questions = [
