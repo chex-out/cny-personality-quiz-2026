@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Red Envelope's Secret: A Magical CNY Journey</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧧</text></svg>">
     <style>
         * {
             margin: 0;
@@ -209,6 +210,9 @@
         .result-header {
             text-align: center;
             margin-bottom: 30px;
+            background: rgba(255, 249, 230, 0.95);
+            padding: 30px;
+            border-radius: 15px;
         }
 
         .result-label {
@@ -238,10 +242,20 @@
         }
 
         .result-card {
-            background: white;
+            background: rgba(255, 249, 230, 0.95);
             border-radius: 15px;
             padding: 25px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-card.no-bg {
+            background: transparent;
+            padding: 0;
+            box-shadow: none;
+        }
+
+        .result-card.full-width {
+            grid-column: 1 / -1;
         }
 
         .result-card h3 {
@@ -252,27 +266,27 @@
         }
 
         .snack-image-container {
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 20px;
-            border-radius: 20px;
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            border-radius: 15px;
             border: 4px solid #FFD700;
             background: #FFF;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .snack-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 16px;
         }
 
         .snack-image-fallback {
-            font-size: 4em;
+            font-size: 6em;
             color: #DC143C;
         }
 
@@ -284,33 +298,34 @@
 
         .trait-pill {
             background: linear-gradient(135deg, #FFE5B4, #FFD700);
-            padding: 12px 20px;
+            padding: 14px 20px;
             border-radius: 25px;
             color: #8B0000;
             font-weight: 600;
             text-align: center;
             font-size: 0.95em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .description-text {
             line-height: 1.7;
-            color: #4a3520;
+            color: #2c1810;
             text-align: left;
-            font-size: 0.95em;
+            font-size: 1em;
         }
 
         .compat-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 20px;
             margin-top: 15px;
         }
 
         .compat-group h4 {
-            font-size: 1em;
-            margin-bottom: 10px;
+            font-size: 1.1em;
+            margin-bottom: 12px;
             text-align: center;
-            color: #8B0000;
+            font-weight: bold;
         }
 
         .friends-title {
@@ -324,25 +339,26 @@
         .compat-names {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
         }
 
         .compat-name {
-            background: #FFF8DC;
-            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 12px 15px;
             border-radius: 10px;
             text-align: center;
-            font-size: 0.9em;
-            color: #4a3520;
+            font-size: 0.95em;
+            color: #2c1810;
             font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .friends-name {
-            border-left: 3px solid #4CAF50;
+            border-left: 4px solid #4CAF50;
         }
 
         .strangers-name {
-            border-left: 3px solid #F44336;
+            border-left: 4px solid #F44336;
         }
 
         @media (max-width: 768px) {
@@ -352,6 +368,10 @@
             
             .compat-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .snack-image-container {
+                min-height: 250px;
             }
         }
 
@@ -411,25 +431,25 @@
                 </div>
 
                 <div class="result-grid">
-                    <!-- Top Left: Image -->
-                    <div class="result-card">
+                    <!-- Left: Image (fills entire grid space) -->
+                    <div class="result-card no-bg">
                         <div class="snack-image-container" id="snackImage"></div>
                     </div>
 
-                    <!-- Top Right: Key Traits -->
+                    <!-- Right: Key Traits -->
                     <div class="result-card">
                         <h3>Key Traits</h3>
                         <div class="trait-pills" id="keyTraits"></div>
                     </div>
 
-                    <!-- Bottom Left: Description -->
-                    <div class="result-card">
+                    <!-- Full Width: Description -->
+                    <div class="result-card full-width">
                         <h3>Your CNY Personality</h3>
                         <p class="description-text" id="description"></p>
                     </div>
 
-                    <!-- Bottom Right: Compatibility -->
-                    <div class="result-card">
+                    <!-- Full Width: Compatibility -->
+                    <div class="result-card full-width">
                         <h3>Compatibility</h3>
                         <div id="compatibility"></div>
                     </div>
@@ -620,7 +640,7 @@
                 snack: "Kueh Bangkit",
                 emoji: "☁️",
                 image: "images/snacks/kueh-bangkit.png",
-                traits: ["Peace-seeking", "Gentle", "Diplomatic"],
+                traits: ["Peace-seeking", "Gentle", "Diplomatic", "Empathetic", "Conflict-avoidant"],
                 description: "Like Kueh Bangkit that melts in your mouth with delicate sweetness, you bring subtle joy and tranquility wherever you go. You're the one who smooths over conflicts at family gatherings, creating an atmosphere where everyone feels comfortable and heard. Your presence is like the gentle coconut aroma of these traditional cookies—understated yet unforgettable, bringing people together without overwhelming them.",
                 friends: [
                     { type: "The Nurturer", reason: "Both prioritize others' wellbeing and create supportive environments" },
@@ -636,7 +656,7 @@
                 snack: "Bak Kwa",
                 emoji: "🏆",
                 image: "images/snacks/bak-kwa.png",
-                traits: ["Ambitious", "Competitive", "Image-conscious"],
+                traits: ["Ambitious", "Competitive", "Image-conscious", "Goal-oriented", "High-performing"],
                 description: "You are the Bak Kwa of CNY—premium, meticulously crafted, and always the centerpiece everyone reaches for. Just as creating perfect Bak Kwa requires patience, precision, and quality ingredients, you invest deeply in your goals and present your best self to the world. You're the relative who arrives with the most expensive gifts, coordinates the family photo perfectly, and somehow manages to look effortlessly successful while doing it all.",
                 friends: [
                     { type: "The Catalyst", reason: "Both energetic and goal-oriented, push each other forward" },
@@ -652,7 +672,7 @@
                 snack: "Pineapple Tarts",
                 emoji: "🤗",
                 image: "images/snacks/pineapple-tarts.png",
-                traits: ["Caring", "Devoted", "Warm"],
+                traits: ["Caring", "Devoted", "Warm", "Selfless", "Supportive"],
                 description: "Like the golden Pineapple Tarts lovingly shaped by hand, you pour your heart into caring for others. Each tart represents hours of devotion—from preparing the filling to crimping every edge with care—just as you invest time and energy into making everyone around you feel valued and loved. You're the one who remembers everyone's preferences, makes extra portions, and ensures no one leaves the celebration feeling empty. Your warmth is the secret ingredient that makes every gathering feel like home.",
                 friends: [
                     { type: "The Harmonizer", reason: "Both create warm, supportive environments for others" },
@@ -668,7 +688,7 @@
                 snack: "Kueh Lapis",
                 emoji: "💡",
                 image: "images/snacks/kueh-lapis.png",
-                traits: ["Creative", "Forward-thinking", "Complex"],
+                traits: ["Creative", "Forward-thinking", "Complex", "Visionary", "Unconventional"],
                 description: "You embody the intricate art of Kueh Lapis—each layer distinct yet harmonious, requiring innovation and patience to create. Like this labor-intensive cake that can take hours to build layer by layer, you approach life with creativity and vision, always thinking several steps ahead. You're the one who suggests new CNY traditions, introduces fusion dishes to the reunion dinner, or finds innovative ways to celebrate while honoring the past. Your mind works in beautiful, complex layers that others only discover with time.",
                 friends: [
                     { type: "The Adventurer", reason: "Both thrive on novelty and trying new approaches" },
@@ -684,7 +704,7 @@
                 snack: "Almond Cookies",
                 emoji: "📜",
                 image: "images/snacks/almond-cookies.png",
-                traits: ["Steadfast", "Respectful", "Principled"],
+                traits: ["Steadfast", "Respectful", "Principled", "Heritage-focused", "Reliable"],
                 description: "Like Almond Cookies that have remained unchanged through generations, you are the keeper of heritage and tradition. These simple, honest cookies need no modern twist—their value lies in their consistency and connection to the past. You're the family historian who ensures proper rituals are observed, who teaches younger generations the significance of each custom, and who brings stability through time-honored practices. In a world of constant change, you are the reassuring constant that anchors everyone to their roots.",
                 friends: [
                     { type: "The Protector", reason: "Both value stability, loyalty, and proven methods" },
@@ -700,7 +720,7 @@
                 snack: "Prawn Rolls",
                 emoji: "🌟",
                 image: "images/snacks/prawn-rolls.png",
-                traits: ["Spontaneous", "Risk-taking", "Free-spirited"],
+                traits: ["Spontaneous", "Risk-taking", "Free-spirited", "Bold", "Experience-seeking"],
                 description: "You're the fiery Prawn Roll of the CNY spread—bold, unexpected, and impossible to ignore. With layers of crispy texture and spicy-sweet filling, you bring excitement and spontaneity to every moment. While others follow the traditional playbook, you're the cousin who suggests an impromptu road trip during CNY, who tries the most daring yusheng combinations, or who turns gift-giving into an adventure. Your zest for life and willingness to take risks inspires others to step outside their comfort zones.",
                 friends: [
                     { type: "The Innovator", reason: "Both embrace change and seek exciting experiences" },
@@ -716,7 +736,7 @@
                 snack: "Arrowhead Chips",
                 emoji: "🔍",
                 image: "images/snacks/arrowhead-chips.png",
-                traits: ["Logical", "Observant", "Systematic"],
+                traits: ["Logical", "Observant", "Systematic", "Detail-oriented", "Rational"],
                 description: "Like Arrowhead Chips sliced with mathematical precision, you bring order, logic, and careful consideration to every situation. The creation of perfect chips requires exact measurements, consistent thickness, and methodical preparation—qualities that define your approach to life. You're the family member who calculates the optimal time to visit relatives, who notices which dishes are running low, and who can explain the historical origins of every CNY tradition. Your keen observations and analytical mind help everyone make better decisions.",
                 friends: [
                     { type: "The Achiever", reason: "Analyst provides strategic depth to Achiever's ambition" },
@@ -732,7 +752,7 @@
                 snack: "Love Letters",
                 emoji: "💫",
                 image: "images/snacks/love-letters.png",
-                traits: ["Principled", "Authentic", "Meaning-driven"],
+                traits: ["Principled", "Authentic", "Meaning-driven", "Philosophical", "Introspective"],
                 description: "You are the Love Letters of CNY—delicate, romantic, and full of deeper meaning. These intricate rolled cookies represent more than just a sweet treat; they carry stories, heritage, and authentic connection. Like the careful rolling technique passed down through generations, you seek genuine meaning in traditions and relationships. You're the one who writes heartfelt messages in red envelopes, who creates meaningful moments during celebrations, and who ensures that beneath all the festivity, real connection happens.",
                 friends: [
                     { type: "The Harmonizer", reason: "Share desire for authentic, meaningful connections" },
@@ -748,7 +768,7 @@
                 snack: "Honeycomb Cookies",
                 emoji: "🎭",
                 image: "images/snacks/honeycomb-cookies.png",
-                traits: ["Charismatic", "Playful", "Expressive"],
+                traits: ["Charismatic", "Playful", "Expressive", "Attention-loving", "Fun-loving"],
                 description: "Like the mesmerizing Honeycomb Cookies with their beautiful geometric patterns, you are visually captivating and impossible to resist. These cookies are all about presentation and delight—crispy, sweet, and designed to make people smile the moment they see them. You're the life of every CNY gathering, turning mundane moments into memorable experiences. Whether you're organizing games, cracking jokes, or simply lighting up the room with your presence, you make celebrations feel truly special and joyful.",
                 friends: [
                     { type: "The Adventurer", reason: "Both spontaneous and fun-loving, feed off each other's energy" },
@@ -764,7 +784,7 @@
                 snack: "Nian Gao",
                 emoji: "🛡️",
                 image: "images/snacks/nian-gao.png",
-                traits: ["Loyal", "Responsible", "Security-focused"],
+                traits: ["Loyal", "Responsible", "Security-focused", "Dependable", "Cautious"],
                 description: "You are the Nian Gao of CNY—symbolizing protection, progress, and prosperity for your loved ones. This sticky, sweet cake literally means 'year cake' and represents growing higher each year, just as you work tirelessly to ensure your family's wellbeing and security. Like Nian Gao that provides lasting sustenance, you are the dependable foundation everyone relies on. You're the one who checks that elderly relatives have rides, who ensures children don't run into danger, and who keeps watchful eyes on everyone's welfare during celebrations.",
                 friends: [
                     { type: "The Traditionalist", reason: "Both value stability, loyalty, and time-tested ways" },
@@ -780,7 +800,7 @@
                 snack: "Sugee Cookies",
                 emoji: "🎨",
                 image: "images/snacks/sugee-cookies.png",
-                traits: ["Introspective", "Non-conformist", "Emotionally deep"],
+                traits: ["Introspective", "Non-conformist", "Emotionally deep", "Unique", "Self-aware"],
                 description: "Like Sugee Cookies with their distinctive semolina texture that sets them apart from all other CNY treats, you embrace your uniqueness unapologetically. These cookies have a grainy, unusual mouthfeel that some love intensely—they're not for everyone, and that's precisely their charm. You're the family member who shows up in unconventional attire, who questions traditions thoughtfully, and who expresses yourself authentically rather than conforming to expectations. Your depth and individuality add richness and complexity to every gathering.",
                 friends: [
                     { type: "The Idealist", reason: "Both seek authenticity and depth in life and relationships" },
@@ -796,7 +816,7 @@
                 snack: "White Rabbit Candies",
                 emoji: "✨",
                 image: "images/snacks/white-rabbit-candies.png",
-                traits: ["Optimistic", "Inspiring", "Enthusiastic"],
+                traits: ["Optimistic", "Inspiring", "Enthusiastic", "Energetic", "Motivating"],
                 description: "You are White Rabbit Candies—bringing instant joy, sweet nostalgia, and infectious optimism wherever you go. Like these beloved treats that spark childhood memories and delight across generations, you have the magical ability to lift spirits and inspire hope. The unwrapping experience itself is part of the joy, just as your presence transforms ordinary moments into special ones. You're the cousin who gets everyone excited about traditions, who reminds people why celebrations matter, and who spreads contagious enthusiasm that motivates others to embrace life fully.",
                 friends: [
                     { type: "The Achiever", reason: "Both energetic and forward-moving, motivate each other" },
