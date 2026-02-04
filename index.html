@@ -53,6 +53,12 @@
             z-index: 1;
         }
 
+        .container.no-bg {
+            background: transparent;
+            box-shadow: none;
+            padding: 20px;
+        }
+
         .container::before {
             content: '';
             position: absolute;
@@ -973,6 +979,9 @@
         function showResults() {
             document.getElementById('quiz').style.display = 'none';
             
+            // Remove cream background for results page
+            document.querySelector('.container').classList.add('no-bg');
+            
             // Find highest scoring personality type
             let maxScore = 0;
             let resultType = '';
@@ -1050,6 +1059,9 @@
                 individualist: 0,
                 catalyst: 0
             };
+            
+            // Restore cream background
+            document.querySelector('.container').classList.remove('no-bg');
             
             document.getElementById('results').classList.remove('active');
             document.getElementById('intro').style.display = 'block';
