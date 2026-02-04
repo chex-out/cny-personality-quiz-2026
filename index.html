@@ -62,7 +62,7 @@
         .container.no-bg {
             background: transparent;
             box-shadow: none;
-            padding: 10px;
+            padding: 0 10px;
         }
 
         .container::before {
@@ -230,7 +230,7 @@
         .result-header {
             text-align: center;
             margin-bottom: 8px;
-            padding: 0 10px 10px 10px;
+            padding: 0 10px 5px 10px;
         }
 
         .result-label {
@@ -731,6 +731,7 @@
             harmonizer: {
                 name: "The Harmonizer",
                 snack: "Kueh Bangkit",
+                snackDisplay: "A Kueh Bangkit",
                 emoji: "☁️",
                 image: "images/snacks/kueh-bangkit.png",
                 traits: ["Peace-seeking", "Gentle", "Diplomatic", "Empathetic", "Conflict-avoidant"],
@@ -747,6 +748,7 @@
             achiever: {
                 name: "The Achiever",
                 snack: "Bak Kwa",
+                snackDisplay: "A Bak Kwa",
                 emoji: "🏆",
                 image: "images/snacks/bak-kwa.png",
                 traits: ["Ambitious", "Competitive", "Image-conscious", "Goal-oriented", "High-performing"],
@@ -763,6 +765,7 @@
             nurturer: {
                 name: "The Nurturer",
                 snack: "Pineapple Tarts",
+                snackDisplay: "A Pineapple Tart",
                 emoji: "🤗",
                 image: "images/snacks/pineapple-tarts.png",
                 traits: ["Caring", "Devoted", "Warm", "Selfless", "Supportive"],
@@ -779,6 +782,7 @@
             innovator: {
                 name: "The Innovator",
                 snack: "Kueh Lapis",
+                snackDisplay: "A Kueh Lapis",
                 emoji: "💡",
                 image: "images/snacks/kueh-lapis.png",
                 traits: ["Creative", "Forward-thinking", "Complex", "Visionary", "Unconventional"],
@@ -795,6 +799,7 @@
             traditionalist: {
                 name: "The Traditionalist",
                 snack: "Almond Cookies",
+                snackDisplay: "An Almond Cookie",
                 emoji: "📜",
                 image: "images/snacks/almond-cookies.png",
                 traits: ["Steadfast", "Respectful", "Principled", "Heritage-focused", "Reliable"],
@@ -811,6 +816,7 @@
             adventurer: {
                 name: "The Adventurer",
                 snack: "Prawn Rolls",
+                snackDisplay: "A Prawn Roll",
                 emoji: "🌟",
                 image: "images/snacks/prawn-rolls.png",
                 traits: ["Spontaneous", "Risk-taking", "Free-spirited", "Bold", "Experience-seeking"],
@@ -827,6 +833,7 @@
             analyst: {
                 name: "The Analyst",
                 snack: "Arrowhead Chips",
+                snackDisplay: "An Arrowhead Chip",
                 emoji: "🔍",
                 image: "images/snacks/arrowhead-chips.png",
                 traits: ["Logical", "Observant", "Systematic", "Detail-oriented", "Rational"],
@@ -843,6 +850,7 @@
             idealist: {
                 name: "The Idealist",
                 snack: "Love Letters",
+                snackDisplay: "A Love Letter",
                 emoji: "💫",
                 image: "images/snacks/love-letters.png",
                 traits: ["Principled", "Authentic", "Meaning-driven", "Philosophical", "Introspective"],
@@ -859,6 +867,7 @@
             entertainer: {
                 name: "The Entertainer",
                 snack: "Honeycomb Cookies",
+                snackDisplay: "A Honeycomb Cookie",
                 emoji: "🎭",
                 image: "images/snacks/honeycomb-cookies.png",
                 traits: ["Charismatic", "Playful", "Expressive", "Attention-loving", "Fun-loving"],
@@ -875,6 +884,7 @@
             protector: {
                 name: "The Protector",
                 snack: "Nian Gao",
+                snackDisplay: "A Nian Gao",
                 emoji: "🛡️",
                 image: "images/snacks/nian-gao.png",
                 traits: ["Loyal", "Responsible", "Security-focused", "Dependable", "Cautious"],
@@ -891,6 +901,7 @@
             individualist: {
                 name: "The Individualist",
                 snack: "Sugee Cookies",
+                snackDisplay: "A Sugee Cookie",
                 emoji: "🎨",
                 image: "images/snacks/sugee-cookies.png",
                 traits: ["Introspective", "Non-conformist", "Emotionally deep", "Unique", "Self-aware"],
@@ -907,6 +918,7 @@
             catalyst: {
                 name: "The Catalyst",
                 snack: "White Rabbit Candies",
+                snackDisplay: "A White Rabbit Candy",
                 emoji: "✨",
                 image: "images/snacks/white-rabbit-candies.png",
                 traits: ["Optimistic", "Inspiring", "Enthusiastic", "Energetic", "Motivating"],
@@ -1005,7 +1017,7 @@
             const personality = personalityTypes[resultType];
             
             document.getElementById('resultType').textContent = personality.name;
-            document.getElementById('snackName').textContent = personality.snack;
+            document.getElementById('snackName').textContent = personality.snackDisplay;
             
             // Create image element with fallback
             const imageContainer = document.getElementById('snackImage');
