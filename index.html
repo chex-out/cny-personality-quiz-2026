@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Red Envelope's Secret: A Magical CNY Journey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background-image: url('images/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #2c1810;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(139, 0, 0, 0.75);
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: #FFF9E6;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #8B0000;
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(255, 215, 0, 0.3);
+        }
+
+        .subtitle {
+            text-align: center;
+            font-style: italic;
+            color: #DC143C;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .intro-text {
+            text-align: center;
+            margin-bottom: 30px;
+            line-height: 1.8;
+            color: #4a3520;
+        }
+
+        .question-container {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .question-container.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            color: #8B0000;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #4a3520;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option {
+            background: white;
+            padding: 20px 70px 20px 20px;
+            border-radius: 10px;
+            border: 2px solid #FFD700;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option::before {
+            content: '🧧';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5em;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .option:hover {
+            background: #FFF8DC;
+            border-color: #DC143C;
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(220, 20, 60, 0.2);
+        }
+
+        .option:hover::before {
+            opacity: 1;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #FFE4B5;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FFD700, #DC143C);
+            border-radius: 10px;
+            transition: width 0.5s;
+        }
+
+        .start-btn, .restart-btn, .generate-image-btn {
+            background: linear-gradient(135deg, #DC143C, #8B0000);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 10px;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            transition: all 0.3s;
+            font-family: 'Georgia', serif;
+            box-shadow: 0 5px 15px rgba(220, 20, 60, 0.3);
+        }
+
+        .start-btn:hover, .restart-btn:hover, .generate-image-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(220, 20, 60, 0.4);
+        }
+
+        .results {
+            display: none;
+        }
+
+        .results.active {
+            display: block;
+            animation: fadeIn 0.8s;
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .result-label {
+            font-size: 1.2em;
+            color: #8B0000;
+            margin-bottom: 10px;
+        }
+
+        .result-title {
+            font-size: 2.8em;
+            color: #DC143C;
+            margin: 10px 0 5px 0;
+            font-weight: bold;
+        }
+
+        .snack-name {
+            font-size: 1.3em;
+            color: #8B0000;
+            font-style: italic;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-card h3 {
+            color: #8B0000;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .snack-image-container {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            border-radius: 20px;
+            border: 4px solid #FFD700;
+            background: #FFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .snack-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+
+        .snack-image-fallback {
+            font-size: 4em;
+            color: #DC143C;
+        }
+
+        .trait-pills {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .trait-pill {
+            background: linear-gradient(135deg, #FFE5B4, #FFD700);
+            padding: 12px 20px;
+            border-radius: 25px;
+            color: #8B0000;
+            font-weight: 600;
+            text-align: center;
+            font-size: 0.95em;
+        }
+
+        .description-text {
+            line-height: 1.7;
+            color: #4a3520;
+            text-align: left;
+            font-size: 0.95em;
+        }
+
+        .compat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .compat-group h4 {
+            font-size: 1em;
+            margin-bottom: 10px;
+            text-align: center;
+            color: #8B0000;
+        }
+
+        .friends-title {
+            color: #2E7D32;
+        }
+
+        .strangers-title {
+            color: #C62828;
+        }
+
+        .compat-names {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .compat-name {
+            background: #FFF8DC;
+            padding: 10px 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #4a3520;
+            font-weight: 500;
+        }
+
+        .friends-name {
+            border-left: 3px solid #4CAF50;
+        }
+
+        .strangers-name {
+            border-left: 3px solid #F44336;
+        }
+
+        @media (max-width: 768px) {
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .compat-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        #shareCanvas {
+            display: none;
+        }
+
+        .generate-image-btn {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #8B0000;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .option {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <div id="intro">
+                <h1>🧧 The Red Envelope's Secret 🧧</h1>
+                <p class="subtitle">A Magical Journey Home</p>
+                <p class="intro-text">
+                    Discover your Chinese New Year personality through a mystical adventure. 
+                    As you prepare for the celebrations, visit family, and find your way home, 
+                    the choices you make will reveal which traditional CNY snack matches your spirit.
+                    <br><br>
+                    Are you ready to unveil your destiny?
+                </p>
+                <button class="start-btn" onclick="startQuiz()">Begin Your Journey</button>
+            </div>
+
+            <div id="quiz" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBar"></div>
+                </div>
+                <div id="questionsContainer"></div>
+            </div>
+
+            <div id="results" class="results">
+                <div class="result-header">
+                    <p class="result-label">You Are...</p>
+                    <h2 class="result-title" id="resultType"></h2>
+                    <p class="snack-name" id="snackName"></p>
+                </div>
+
+                <div class="result-grid">
+                    <!-- Top Left: Image -->
+                    <div class="result-card">
+                        <div class="snack-image-container" id="snackImage"></div>
+                    </div>
+
+                    <!-- Top Right: Key Traits -->
+                    <div class="result-card">
+                        <h3>Key Traits</h3>
+                        <div class="trait-pills" id="keyTraits"></div>
+                    </div>
+
+                    <!-- Bottom Left: Description -->
+                    <div class="result-card">
+                        <h3>Your CNY Personality</h3>
+                        <p class="description-text" id="description"></p>
+                    </div>
+
+                    <!-- Bottom Right: Compatibility -->
+                    <div class="result-card">
+                        <h3>Compatibility</h3>
+                        <div id="compatibility"></div>
+                    </div>
+                </div>
+
+                <button class="generate-image-btn" onclick="generateShareImage()">📸 Generate Share Image</button>
+                <button class="restart-btn" onclick="restartQuiz()">Take Quiz Again</button>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="shareCanvas" width="1080" height="1920"></canvas>
+
+    <script>
+        const questions = [
+            {
+                id: 1,
+                question: "Question 1: The Golden Morning",
+                text: "You wake up on Chinese New Year Eve to find a glowing red envelope (red envelope) on your pillow that wasn't there last night. When you open it, golden light spills out. What do you do?",
+                options: [
+                    { text: "Carefully examine it to understand what's happening before touching anything", scores: { analyst: 2, protector: 1 } },
+                    { text: "Immediately call your family to share this amazing discovery", scores: { nurturer: 2, harmonizer: 1 } },
+                    { text: "Feel a deep sense of wonder and write down your emotions", scores: { individualist: 2, idealist: 1 } },
+                    { text: "Laugh with delight and see what adventure this might bring", scores: { adventurer: 2, entertainer: 1 } }
+                ]
+            },
+            {
+                id: 2,
+                question: "Question 2: The Market's Call",
+                text: "The red envelope whispers that you must visit the Chinese New Year bazaar in Chinatown. At the crowded market, you notice:",
+                options: [
+                    { text: "An elderly vendor struggling with heavy boxes — you offer to help", scores: { nurturer: 2, harmonizer: 1 } },
+                    { text: "The most popular stall with the longest queue — that's where the best items must be", scores: { achiever: 2, catalyst: 1 } },
+                    { text: "A hidden corner stall with unusual, handcrafted decorations no one else seems to notice", scores: { individualist: 2, innovator: 1 } },
+                    { text: "The traditional calligrapher who's been in the same spot for 40 years", scores: { traditionalist: 2, protector: 1 } }
+                ]
+            },
+            {
+                id: 3,
+                question: "Question 3: The Gift Selection",
+                text: "You need to buy a gift for a relative you haven't seen in years. You choose:",
+                options: [
+                    { text: "Something practical they can use daily", scores: { nurturer: 2, protector: 1 } },
+                    { text: "The most impressive, high-end brand that will make a statement", scores: { achiever: 2, catalyst: 1 } },
+                    { text: "A unique artisanal item that reflects their personality and shows you remember them", scores: { individualist: 2, idealist: 1 } },
+                    { text: "A classic gift that follows tradition and is always appropriate", scores: { traditionalist: 2, harmonizer: 1 } }
+                ]
+            },
+            {
+                id: 4,
+                question: "Question 4: The Preparation Dilemma",
+                text: "Back home, you realise the house still needs cleaning, food needs cooking, and decorations need hanging. You:",
+                options: [
+                    { text: "Create a detailed schedule and systematically work through each task", scores: { analyst: 2, achiever: 1 } },
+                    { text: "Rally your family together and make it a fun group activity with music", scores: { entertainer: 2, catalyst: 1 } },
+                    { text: "Focus on the most meaningful touches that will make guests feel welcomed", scores: { nurturer: 2, idealist: 1 } },
+                    { text: "Do the essential traditional preparations your family has always done", scores: { traditionalist: 2, protector: 1 } }
+                ]
+            },
+            {
+                id: 5,
+                question: "Question 5: The Magical Ingredient",
+                text: "While cooking, you discover a glowing ingredient in your pantry you've never seen before. The red envelope pulses. You:",
+                options: [
+                    { text: "Research what it might be before using it", scores: { analyst: 2, protector: 1 } },
+                    { text: "Trust your instincts and experiment — cooking should be creative!", scores: { innovator: 2, adventurer: 1 } },
+                    { text: "Ask your elders if they recognize it from old recipes", scores: { traditionalist: 2, harmonizer: 1 } },
+                    { text: "Add it to your dish — fortune favors the bold!", scores: { adventurer: 2, catalyst: 1 } }
+                ]
+            },
+            {
+                id: 6,
+                question: "Question 6: The Unexpected Guest",
+                text: "A stranger appears at your door, claiming the red envelope belongs to them. They look tired and lost. You:",
+                options: [
+                    { text: "Invite them in and offer food — no one should be alone during Chinese New Year", scores: { nurturer: 2, harmonizer: 1 } },
+                    { text: "Politely ask questions to verify their story first", scores: { analyst: 2, protector: 1 } },
+                    { text: "Feel empathy for their situation and want to understand how their journey led them here", scores: { idealist: 2, individualist: 1 } },
+                    { text: "See this as fate bringing an interesting person into your celebration", scores: { adventurer: 2, innovator: 1 } }
+                ]
+            },
+            {
+                id: 7,
+                question: "Question 7: The Family Reunion",
+                text: "At your family gathering, chaos erupts. Two relatives start arguing over a grievance. The red envelope grows dim. You:",
+                options: [
+                    { text: "Step in gently to mediate and find common ground", scores: { harmonizer: 2, idealist: 1 } },
+                    { text: "Distract everyone with games or entertainment to lighten the mood", scores: { entertainer: 2, catalyst: 1 } },
+                    { text: "Listen to both sides to understand the deeper emotions involved", scores: { idealist: 2, nurturer: 1 } },
+                    { text: "Suggest honoring tradition by letting elders speak and resolve it their way", scores: { traditionalist: 2, protector: 1 } }
+                ]
+            },
+            {
+                id: 8,
+                question: "Question 8: The Children's Game",
+                text: "The children beg you to organize a game. The red envelope glows brighter when they're near. You create:",
+                options: [
+                    { text: "A treasure hunt that teaches them about Chinese New Year traditions", scores: { traditionalist: 2, analyst: 1 } },
+                    { text: "A talent show where each child can showcase something unique", scores: { individualist: 2, entertainer: 1 } },
+                    { text: "A cooperative game where everyone works together to win", scores: { harmonizer: 2, nurturer: 1 } },
+                    { text: "An exciting competition with prizes for the winners", scores: { achiever: 2, catalyst: 1 } }
+                ]
+            },
+            {
+                id: 9,
+                question: "Question 9: The Midnight Test",
+                text: "At midnight, the red envelope reveals a test: You can receive one blessing for the new year. Choose:",
+                options: [
+                    { text: "Success in your ambitions and recognition for your hard work", scores: { achiever: 2, catalyst: 1 } },
+                    { text: "Deep, meaningful connections with those you love", scores: { idealist: 2, nurturer: 1 } },
+                    { text: "Safety and security for your family", scores: { protector: 2, traditionalist: 1 } },
+                    { text: "Freedom to explore new possibilities", scores: { adventurer: 2, innovator: 1 } }
+                ]
+            },
+            {
+                id: 10,
+                question: "Question 10: The Ancestor's Message",
+                text: "Your late grandmother appears in a dream that night, smiling. She shows you a memory. Which memory resonates most?",
+                options: [
+                    { text: "Her teaching you a traditional recipe, step by careful step", scores: { traditionalist: 2, analyst: 1 } },
+                    { text: "Her laughing joyfully at a family gathering, surrounded by loved ones", scores: { entertainer: 2, harmonizer: 1 } },
+                    { text: "Her quietly sitting with you, just being present without words", scores: { individualist: 2, idealist: 1 } },
+                    { text: "Her telling you stories of her youth and adventures", scores: { adventurer: 2, innovator: 1 } }
+                ]
+            },
+            {
+                id: 11,
+                question: "Question 11: The Morning After",
+                text: "On the first day of Chinese New Year, you receive many red envelopes from relatives. How do you feel about this tradition?",
+                options: [
+                    { text: "It's wonderful — it creates joyful moments and strengthens family bonds", scores: { harmonizer: 2, nurturer: 1 } },
+                    { text: "It's meaningful because it connects us to generations of tradition", scores: { traditionalist: 2, idealist: 1 } },
+                    { text: "It's practical and shows family members care about your wellbeing", scores: { protector: 2, analyst: 1 } },
+                    { text: "It's fun to see the different amounts and guess who gave what", scores: { entertainer: 2, catalyst: 1 } }
+                ]
+            },
+            {
+                id: 12,
+                question: "Question 12: The Reunion Dinner Speech",
+                text: "You're unexpectedly asked to give a toast at dinner. You speak about:",
+                options: [
+                    { text: "Gratitude for family and the importance of cherishing each other", scores: { nurturer: 2, harmonizer: 1 } },
+                    { text: "Exciting goals and dreams for the year ahead", scores: { achiever: 2, catalyst: 1 } },
+                    { text: "Honoring ancestors and maintaining treasured traditions", scores: { traditionalist: 2, protector: 1 } },
+                    { text: "The unique journey each person is on and celebrating individuality", scores: { individualist: 2, innovator: 1 } }
+                ]
+            },
+            {
+                id: 13,
+                question: "Question 13: The Heirloom's Choice",
+                text: "An elderly aunt offers you a precious family heirloom. During the exchange, the red envelope glows warmly. What moves you most about this moment?",
+                options: [
+                    { text: "The excitement of being chosen and recognized by your family", scores: { catalyst: 2, entertainer: 1 } },
+                    { text: "The profound connection to your family's history and roots", scores: { idealist: 2, traditionalist: 1 } },
+                    { text: "The responsibility and privilege of preserving something meaningful", scores: { protector: 2, analyst: 1 } },
+                    { text: "The opportunity to honor your aunt's trust and make her happy", scores: { nurturer: 2, harmonizer: 1 } }
+                ]
+            },
+            {
+                id: 14,
+                question: "Question 14: The Journey Home",
+                text: "As you travel home that night, the red envelope transforms into a lantern lighting your path. You reflect:",
+                options: [
+                    { text: "On all the joy and laughter shared today", scores: { entertainer: 2, harmonizer: 1 } },
+                    { text: "On the wisdom and traditions passed down", scores: { traditionalist: 2, analyst: 1 } },
+                    { text: "On how you helped make the day special for others", scores: { nurturer: 2, idealist: 1 } },
+                    { text: "On the interesting stories and people you encountered", scores: { adventurer: 2, individualist: 1 } }
+                ]
+            },
+            {
+                id: 15,
+                question: "Question 15: The Final Gift",
+                text: "Home at last, the red envelope delivers its final magic — it shows you what you brought to this year's celebration. What do you see yourself giving?",
+                options: [
+                    { text: "Warmth and emotional support that made others feel safe", scores: { nurturer: 2, harmonizer: 1 } },
+                    { text: "Energy and enthusiasm that made everything more fun", scores: { entertainer: 2, catalyst: 1 } },
+                    { text: "Organization and care that made everything run smoothly", scores: { analyst: 2, protector: 1 } },
+                    { text: "Creativity and fresh ideas that made things memorable", scores: { innovator: 2, individualist: 1 } },
+                    { text: "Stability and wisdom that honored what matters most", scores: { traditionalist: 2, achiever: 1 } },
+                    { text: "Inspiration that encouraged others to be their best selves", scores: { catalyst: 2, idealist: 1 } }
+                ]
+            }
+        ];
+
+        const personalityTypes = {
+            harmonizer: {
+                name: "The Harmonizer",
+                snack: "Kueh Bangkit",
+                emoji: "☁️",
+                image: "images/snacks/kueh-bangkit.png",
+                traits: ["Peace-seeking", "Gentle", "Diplomatic"],
+                description: "Like Kueh Bangkit that melts in your mouth with delicate sweetness, you bring subtle joy and tranquility wherever you go. You're the one who smooths over conflicts at family gatherings, creating an atmosphere where everyone feels comfortable and heard. Your presence is like the gentle coconut aroma of these traditional cookies—understated yet unforgettable, bringing people together without overwhelming them.",
+                friends: [
+                    { type: "The Nurturer", reason: "Both prioritize others' wellbeing and create supportive environments" },
+                    { type: "The Idealist", reason: "Share desire for authentic connections and peaceful resolution" }
+                ],
+                strangers: [
+                    { type: "The Achiever", reason: "Harmonizer's conflict avoidance clashes with Achiever's competitive drive" },
+                    { type: "The Entertainer", reason: "Entertainer's spotlight-seeking can overwhelm Harmonizer's quiet presence" }
+                ]
+            },
+            achiever: {
+                name: "The Achiever",
+                snack: "Bak Kwa",
+                emoji: "🏆",
+                image: "images/snacks/bak-kwa.png",
+                traits: ["Ambitious", "Competitive", "Image-conscious"],
+                description: "You are the Bak Kwa of CNY—premium, meticulously crafted, and always the centerpiece everyone reaches for. Just as creating perfect Bak Kwa requires patience, precision, and quality ingredients, you invest deeply in your goals and present your best self to the world. You're the relative who arrives with the most expensive gifts, coordinates the family photo perfectly, and somehow manages to look effortlessly successful while doing it all.",
+                friends: [
+                    { type: "The Catalyst", reason: "Both energetic and goal-oriented, push each other forward" },
+                    { type: "The Analyst", reason: "Analyst provides strategic thinking to support Achiever's ambitions" }
+                ],
+                strangers: [
+                    { type: "The Harmonizer", reason: "Achiever's intensity disrupts Harmonizer's need for peace" },
+                    { type: "The Adventurer", reason: "Adventurer's spontaneity conflicts with Achiever's planned success path" }
+                ]
+            },
+            nurturer: {
+                name: "The Nurturer",
+                snack: "Pineapple Tarts",
+                emoji: "🤗",
+                image: "images/snacks/pineapple-tarts.png",
+                traits: ["Caring", "Devoted", "Warm"],
+                description: "Like the golden Pineapple Tarts lovingly shaped by hand, you pour your heart into caring for others. Each tart represents hours of devotion—from preparing the filling to crimping every edge with care—just as you invest time and energy into making everyone around you feel valued and loved. You're the one who remembers everyone's preferences, makes extra portions, and ensures no one leaves the celebration feeling empty. Your warmth is the secret ingredient that makes every gathering feel like home.",
+                friends: [
+                    { type: "The Harmonizer", reason: "Both create warm, supportive environments for others" },
+                    { type: "The Protector", reason: "Share commitment to caring for and safeguarding loved ones" }
+                ],
+                strangers: [
+                    { type: "The Individualist", reason: "Individualist's self-focus can seem selfish to service-oriented Nurturer" },
+                    { type: "The Achiever", reason: "Nurturer may feel used when Achiever prioritizes goals over relationships" }
+                ]
+            },
+            innovator: {
+                name: "The Innovator",
+                snack: "Kueh Lapis",
+                emoji: "💡",
+                image: "images/snacks/kueh-lapis.png",
+                traits: ["Creative", "Forward-thinking", "Complex"],
+                description: "You embody the intricate art of Kueh Lapis—each layer distinct yet harmonious, requiring innovation and patience to create. Like this labor-intensive cake that can take hours to build layer by layer, you approach life with creativity and vision, always thinking several steps ahead. You're the one who suggests new CNY traditions, introduces fusion dishes to the reunion dinner, or finds innovative ways to celebrate while honoring the past. Your mind works in beautiful, complex layers that others only discover with time.",
+                friends: [
+                    { type: "The Adventurer", reason: "Both thrive on novelty and trying new approaches" },
+                    { type: "The Idealist", reason: "Share vision for how things could be better and different" }
+                ],
+                strangers: [
+                    { type: "The Traditionalist", reason: "Innovator's constant change threatens Traditionalist's stability" },
+                    { type: "The Protector", reason: "Protector sees Innovator's risk-taking as irresponsible" }
+                ]
+            },
+            traditionalist: {
+                name: "The Traditionalist",
+                snack: "Almond Cookies",
+                emoji: "📜",
+                image: "images/snacks/almond-cookies.png",
+                traits: ["Steadfast", "Respectful", "Principled"],
+                description: "Like Almond Cookies that have remained unchanged through generations, you are the keeper of heritage and tradition. These simple, honest cookies need no modern twist—their value lies in their consistency and connection to the past. You're the family historian who ensures proper rituals are observed, who teaches younger generations the significance of each custom, and who brings stability through time-honored practices. In a world of constant change, you are the reassuring constant that anchors everyone to their roots.",
+                friends: [
+                    { type: "The Protector", reason: "Both value stability, loyalty, and proven methods" },
+                    { type: "The Analyst", reason: "Analyst's methodical approach aligns with Traditionalist's systematic values" }
+                ],
+                strangers: [
+                    { type: "The Innovator", reason: "Traditionalist resists Innovator's push for constant change" },
+                    { type: "The Adventurer", reason: "Adventurer's impulsiveness conflicts with Traditionalist's need for structure" }
+                ]
+            },
+            adventurer: {
+                name: "The Adventurer",
+                snack: "Prawn Rolls",
+                emoji: "🌟",
+                image: "images/snacks/prawn-rolls.png",
+                traits: ["Spontaneous", "Risk-taking", "Free-spirited"],
+                description: "You're the fiery Prawn Roll of the CNY spread—bold, unexpected, and impossible to ignore. With layers of crispy texture and spicy-sweet filling, you bring excitement and spontaneity to every moment. While others follow the traditional playbook, you're the cousin who suggests an impromptu road trip during CNY, who tries the most daring yusheng combinations, or who turns gift-giving into an adventure. Your zest for life and willingness to take risks inspires others to step outside their comfort zones.",
+                friends: [
+                    { type: "The Innovator", reason: "Both embrace change and seek exciting experiences" },
+                    { type: "The Entertainer", reason: "Share spontaneous energy and love of fun" }
+                ],
+                strangers: [
+                    { type: "The Traditionalist", reason: "Adventurer's rule-breaking frustrates Traditionalist" },
+                    { type: "The Analyst", reason: "Analyst's need to overthink dampens Adventurer's spontaneity" }
+                ]
+            },
+            analyst: {
+                name: "The Analyst",
+                snack: "Arrowhead Chips",
+                emoji: "🔍",
+                image: "images/snacks/arrowhead-chips.png",
+                traits: ["Logical", "Observant", "Systematic"],
+                description: "Like Arrowhead Chips sliced with mathematical precision, you bring order, logic, and careful consideration to every situation. The creation of perfect chips requires exact measurements, consistent thickness, and methodical preparation—qualities that define your approach to life. You're the family member who calculates the optimal time to visit relatives, who notices which dishes are running low, and who can explain the historical origins of every CNY tradition. Your keen observations and analytical mind help everyone make better decisions.",
+                friends: [
+                    { type: "The Achiever", reason: "Analyst provides strategic depth to Achiever's ambition" },
+                    { type: "The Traditionalist", reason: "Both appreciate systematic, proven approaches" }
+                ],
+                strangers: [
+                    { type: "The Adventurer", reason: "Adventurer's impulsiveness seems reckless to careful Analyst" },
+                    { type: "The Entertainer", reason: "Entertainer's emotional expressiveness overwhelms logical Analyst" }
+                ]
+            },
+            idealist: {
+                name: "The Idealist",
+                snack: "Love Letters",
+                emoji: "💫",
+                image: "images/snacks/love-letters.png",
+                traits: ["Principled", "Authentic", "Meaning-driven"],
+                description: "You are the Love Letters of CNY—delicate, romantic, and full of deeper meaning. These intricate rolled cookies represent more than just a sweet treat; they carry stories, heritage, and authentic connection. Like the careful rolling technique passed down through generations, you seek genuine meaning in traditions and relationships. You're the one who writes heartfelt messages in red envelopes, who creates meaningful moments during celebrations, and who ensures that beneath all the festivity, real connection happens.",
+                friends: [
+                    { type: "The Harmonizer", reason: "Share desire for authentic, meaningful connections" },
+                    { type: "The Innovator", reason: "Both envision better possibilities and pursue meaningful change" }
+                ],
+                strangers: [
+                    { type: "The Achiever", reason: "Idealist sees Achiever as superficial and image-obsessed" },
+                    { type: "The Catalyst", reason: "Catalyst's relentless optimism can feel inauthentic to depth-seeking Idealist" }
+                ]
+            },
+            entertainer: {
+                name: "The Entertainer",
+                snack: "Honeycomb Cookies",
+                emoji: "🎭",
+                image: "images/snacks/honeycomb-cookies.png",
+                traits: ["Charismatic", "Playful", "Expressive"],
+                description: "Like the mesmerizing Honeycomb Cookies with their beautiful geometric patterns, you are visually captivating and impossible to resist. These cookies are all about presentation and delight—crispy, sweet, and designed to make people smile the moment they see them. You're the life of every CNY gathering, turning mundane moments into memorable experiences. Whether you're organizing games, cracking jokes, or simply lighting up the room with your presence, you make celebrations feel truly special and joyful.",
+                friends: [
+                    { type: "The Adventurer", reason: "Both spontaneous and fun-loving, feed off each other's energy" },
+                    { type: "The Catalyst", reason: "Share enthusiasm and ability to energize groups" }
+                ],
+                strangers: [
+                    { type: "The Analyst", reason: "Analyst's serious demeanor dampens Entertainer's playful spirit" },
+                    { type: "The Individualist", reason: "Individualist views Entertainer as shallow and attention-seeking" }
+                ]
+            },
+            protector: {
+                name: "The Protector",
+                snack: "Nian Gao",
+                emoji: "🛡️",
+                image: "images/snacks/nian-gao.png",
+                traits: ["Loyal", "Responsible", "Security-focused"],
+                description: "You are the Nian Gao of CNY—symbolizing protection, progress, and prosperity for your loved ones. This sticky, sweet cake literally means 'year cake' and represents growing higher each year, just as you work tirelessly to ensure your family's wellbeing and security. Like Nian Gao that provides lasting sustenance, you are the dependable foundation everyone relies on. You're the one who checks that elderly relatives have rides, who ensures children don't run into danger, and who keeps watchful eyes on everyone's welfare during celebrations.",
+                friends: [
+                    { type: "The Traditionalist", reason: "Both value stability, loyalty, and time-tested ways" },
+                    { type: "The Nurturer", reason: "Share commitment to caring for and supporting others" }
+                ],
+                strangers: [
+                    { type: "The Innovator", reason: "Protector sees Innovator's changes as threatening to security" },
+                    { type: "The Individualist", reason: "Individualist's unconventional choices worry security-focused Protector" }
+                ]
+            },
+            individualist: {
+                name: "The Individualist",
+                snack: "Sugee Cookies",
+                emoji: "🎨",
+                image: "images/snacks/sugee-cookies.png",
+                traits: ["Introspective", "Non-conformist", "Emotionally deep"],
+                description: "Like Sugee Cookies with their distinctive semolina texture that sets them apart from all other CNY treats, you embrace your uniqueness unapologetically. These cookies have a grainy, unusual mouthfeel that some love intensely—they're not for everyone, and that's precisely their charm. You're the family member who shows up in unconventional attire, who questions traditions thoughtfully, and who expresses yourself authentically rather than conforming to expectations. Your depth and individuality add richness and complexity to every gathering.",
+                friends: [
+                    { type: "The Idealist", reason: "Both seek authenticity and depth in life and relationships" },
+                    { type: "The Innovator", reason: "Appreciate each other's unique perspectives and creative expression" }
+                ],
+                strangers: [
+                    { type: "The Entertainer", reason: "Entertainer's superficial charm irritates depth-seeking Individualist" },
+                    { type: "The Nurturer", reason: "Nurturer's focus on others can make Individualist feel misunderstood" }
+                ]
+            },
+            catalyst: {
+                name: "The Catalyst",
+                snack: "White Rabbit Candies",
+                emoji: "✨",
+                image: "images/snacks/white-rabbit-candies.png",
+                traits: ["Optimistic", "Inspiring", "Enthusiastic"],
+                description: "You are White Rabbit Candies—bringing instant joy, sweet nostalgia, and infectious optimism wherever you go. Like these beloved treats that spark childhood memories and delight across generations, you have the magical ability to lift spirits and inspire hope. The unwrapping experience itself is part of the joy, just as your presence transforms ordinary moments into special ones. You're the cousin who gets everyone excited about traditions, who reminds people why celebrations matter, and who spreads contagious enthusiasm that motivates others to embrace life fully.",
+                friends: [
+                    { type: "The Achiever", reason: "Both energetic and forward-moving, motivate each other" },
+                    { type: "The Entertainer", reason: "Share infectious enthusiasm and ability to inspire groups" }
+                ],
+                strangers: [
+                    { type: "The Individualist", reason: "Individualist finds Catalyst's positivity dismissive of complexity" },
+                    { type: "The Idealist", reason: "Idealist may see Catalyst's optimism as naive or superficial" }
+                ]
+            }
+        };
+
+        let currentQuestion = 0;
+        let scores = {
+            harmonizer: 0,
+            achiever: 0,
+            nurturer: 0,
+            innovator: 0,
+            traditionalist: 0,
+            adventurer: 0,
+            analyst: 0,
+            idealist: 0,
+            entertainer: 0,
+            protector: 0,
+            individualist: 0,
+            catalyst: 0
+        };
+
+        function startQuiz() {
+            document.getElementById('intro').style.display = 'none';
+            document.getElementById('quiz').style.display = 'block';
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const container = document.getElementById('questionsContainer');
+            const question = questions[currentQuestion];
+            
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+
+            container.innerHTML = `
+                <div class="question-container active">
+                    <div class="question">${question.question}</div>
+                    <div class="question-text">${question.text}</div>
+                    <div class="options">
+                        ${question.options.map((option, index) => `
+                            <div class="option" onclick="selectOption(${index})">
+                                ${option.text}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function selectOption(optionIndex) {
+            const question = questions[currentQuestion];
+            const selectedOption = question.options[optionIndex];
+            
+            // Add scores
+            for (let type in selectedOption.scores) {
+                scores[type] += selectedOption.scores[type];
+            }
+
+            currentQuestion++;
+
+            if (currentQuestion < questions.length) {
+                renderQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('quiz').style.display = 'none';
+            
+            // Find highest scoring personality type
+            let maxScore = 0;
+            let resultType = '';
+            
+            for (let type in scores) {
+                if (scores[type] > maxScore) {
+                    maxScore = scores[type];
+                    resultType = type;
+                }
+            }
+
+            const personality = personalityTypes[resultType];
+            
+            document.getElementById('resultType').textContent = personality.name;
+            document.getElementById('snackName').textContent = personality.snack;
+            
+            // Create image element with fallback
+            const imageContainer = document.getElementById('snackImage');
+            imageContainer.innerHTML = `
+                <img src="${personality.image}" 
+                     alt="${personality.snack}" 
+                     class="snack-image"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="snack-image-fallback" style="display: none;">${personality.emoji}</div>
+            `;
+            
+            // Key traits as pills
+            const traitsHtml = personality.traits.map(trait => 
+                `<div class="trait-pill">${trait}</div>`
+            ).join('');
+            document.getElementById('keyTraits').innerHTML = traitsHtml;
+            
+            // Description
+            document.getElementById('description').textContent = personality.description;
+            
+            // Compatibility - simplified to just names
+            const compatHtml = `
+                <div class="compat-grid">
+                    <div class="compat-group">
+                        <h4 class="friends-title">Besties with 💚</h4>
+                        <div class="compat-names">
+                            ${personality.friends.map(friend => `
+                                <div class="compat-name friends-name">${friend.type}</div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="compat-group">
+                        <h4 class="strangers-title">Doesn't vibe with 💔</h4>
+                        <div class="compat-names">
+                            ${personality.strangers.map(stranger => `
+                                <div class="compat-name strangers-name">${stranger.type}</div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('compatibility').innerHTML = compatHtml;
+            
+            document.getElementById('results').classList.add('active');
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            scores = {
+                harmonizer: 0,
+                achiever: 0,
+                nurturer: 0,
+                innovator: 0,
+                traditionalist: 0,
+                adventurer: 0,
+                analyst: 0,
+                idealist: 0,
+                entertainer: 0,
+                protector: 0,
+                individualist: 0,
+                catalyst: 0
+            };
+            
+            document.getElementById('results').classList.remove('active');
+            document.getElementById('intro').style.display = 'block';
+        }
+
+        function generateShareImage() {
+            const canvas = document.getElementById('shareCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Get current result data
+            let maxScore = 0;
+            let resultType = '';
+            
+            for (let type in scores) {
+                if (scores[type] > maxScore) {
+                    maxScore = scores[type];
+                    resultType = type;
+                }
+            }
+            
+            const personality = personalityTypes[resultType];
+            const resultTypeName = personality.name;
+            const snackName = personality.snack;
+            const emoji = personality.emoji;
+            const traits = personality.traits;
+            
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, 0, 1920);
+            gradient.addColorStop(0, '#8B0000');
+            gradient.addColorStop(0.5, '#DC143C');
+            gradient.addColorStop(1, '#FF6347');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 1080, 1920);
+            
+            // Decorative circles
+            ctx.fillStyle = 'rgba(255, 215, 0, 0.1)';
+            ctx.beginPath();
+            ctx.arc(200, 300, 250, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(880, 1600, 300, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Main content box
+            ctx.fillStyle = '#FFF9E6';
+            ctx.roundRect(80, 200, 920, 1520, 30);
+            ctx.fill();
+            
+            // Border
+            ctx.strokeStyle = '#FFD700';
+            ctx.lineWidth = 8;
+            ctx.roundRect(80, 200, 920, 1520, 30);
+            ctx.stroke();
+            
+            // Title
+            ctx.fillStyle = '#8B0000';
+            ctx.font = 'bold 60px Georgia';
+            ctx.textAlign = 'center';
+            ctx.fillText('🧧 The Red Envelope\'s Secret 🧧', 540, 320);
+            
+            // Try to load and draw the actual image, fallback to emoji if it fails
+            const snackImg = new Image();
+            snackImg.crossOrigin = "anonymous";
+            snackImg.onload = function() {
+                // Draw image in a circular frame
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(540, 520, 100, 0, Math.PI * 2);
+                ctx.clip();
+                ctx.drawImage(snackImg, 440, 420, 200, 200);
+                ctx.restore();
+                
+                // Draw border around image
+                ctx.strokeStyle = '#FFD700';
+                ctx.lineWidth = 5;
+                ctx.beginPath();
+                ctx.arc(540, 520, 100, 0, Math.PI * 2);
+                ctx.stroke();
+                
+                finishShareImage();
+            };
+            snackImg.onerror = function() {
+                // Fallback to emoji if image fails to load
+                ctx.font = '200px Arial';
+                ctx.fillText(emoji, 540, 600);
+                finishShareImage();
+            };
+            snackImg.src = personality.image;
+            
+            function finishShareImage() {
+                // Personality Type
+                ctx.fillStyle = '#8B0000';
+                ctx.font = 'bold 70px Georgia';
+                ctx.fillText(resultTypeName, 540, 750);
+                
+                // Snack Name
+                ctx.fillStyle = '#DC143C';
+                ctx.font = 'italic 50px Georgia';
+                ctx.fillText(snackName, 540, 830);
+                
+                // Decorative line
+                ctx.strokeStyle = '#FFD700';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(240, 900);
+                ctx.lineTo(840, 900);
+                ctx.stroke();
+                
+                // Traits
+                ctx.fillStyle = '#4a3520';
+                ctx.font = '40px Georgia';
+                let yPos = 1000;
+                traits.forEach(trait => {
+                    // Trait background
+                    ctx.fillStyle = '#FFD700';
+                    const textWidth = ctx.measureText(trait).width;
+                    ctx.roundRect(540 - textWidth/2 - 30, yPos - 35, textWidth + 60, 60, 20);
+                    ctx.fill();
+                    
+                    // Trait text
+                    ctx.fillStyle = '#8B0000';
+                    ctx.fillText(trait, 540, yPos);
+                    yPos += 90;
+                });
+                
+                // Bottom text
+                ctx.fillStyle = '#8B0000';
+                ctx.font = 'italic 35px Georgia';
+                ctx.fillText('Discover your CNY personality', 540, 1600);
+                
+                // Download
+                const link = document.createElement('a');
+                link.download = `cny-personality-${resultTypeName.toLowerCase().replace(/\s+/g, '-')}.png`;
+                link.href = canvas.toDataURL();
+                link.click();
+            }
+        }
+
+        // Polyfill for roundRect if needed
+        if (!CanvasRenderingContext2D.prototype.roundRect) {
+            CanvasRenderingContext2D.prototype.roundRect = function(x, y, width, height, radius) {
+                this.beginPath();
+                this.moveTo(x + radius, y);
+                this.lineTo(x + width - radius, y);
+                this.quadraticCurveTo(x + width, y, x + width, y + radius);
+                this.lineTo(x + width, y + height - radius);
+                this.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+                this.lineTo(x + radius, y + height);
+                this.quadraticCurveTo(x, y + height, x, y + height - radius);
+                this.lineTo(x, y + radius);
+                this.quadraticCurveTo(x, y, x + radius, y);
+                this.closePath();
+            };
+        }
+    </script>
+</body>
+</html>
