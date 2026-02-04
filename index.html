@@ -998,119 +998,236 @@
             }
             
             const personality = personalityTypes[resultType];
-            const resultTypeName = personality.name;
-            const snackName = personality.snack;
-            const emoji = personality.emoji;
-            const traits = personality.traits;
             
-            // Background gradient
-            const gradient = ctx.createLinearGradient(0, 0, 0, 1920);
-            gradient.addColorStop(0, '#8B0000');
-            gradient.addColorStop(0.5, '#DC143C');
-            gradient.addColorStop(1, '#FF6347');
-            ctx.fillStyle = gradient;
+            // Clear canvas
+            ctx.fillStyle = '#8B0000';
             ctx.fillRect(0, 0, 1080, 1920);
             
-            // Decorative circles
-            ctx.fillStyle = 'rgba(255, 215, 0, 0.1)';
-            ctx.beginPath();
-            ctx.arc(200, 300, 250, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.beginPath();
-            ctx.arc(880, 1600, 300, 0, Math.PI * 2);
-            ctx.fill();
+            // Main content card
+            const cardPadding = 60;
+            const cardX = cardPadding;
+            const cardY = 150;
+            const cardWidth = 1080 - (cardPadding * 2);
+            const cardHeight = 1620;
             
-            // Main content box
+            // Card background
             ctx.fillStyle = '#FFF9E6';
-            ctx.roundRect(80, 200, 920, 1520, 30);
+            ctx.roundRect(cardX, cardY, cardWidth, cardHeight, 20);
             ctx.fill();
-            
-            // Border
-            ctx.strokeStyle = '#FFD700';
-            ctx.lineWidth = 8;
-            ctx.roundRect(80, 200, 920, 1520, 30);
-            ctx.stroke();
             
             // Title
             ctx.fillStyle = '#8B0000';
-            ctx.font = 'bold 60px Georgia';
+            ctx.font = '700 48px Inter, sans-serif';
             ctx.textAlign = 'center';
-            ctx.fillText('🧧 The Red Envelope\'s Secret 🧧', 540, 320);
+            ctx.fillText('You Are...', 540, 250);
             
-            // Try to load and draw the actual image, fallback to emoji if it fails
+            // Personality Name
+            ctx.fillStyle = '#DC143C';
+            ctx.font = '800 72px Inter, sans-serif';
+            const nameLines = personality.name.split(' ');
+            let nameY = 340;
+            nameLines.forEach(line => {
+                ctx.fillText(line, 540, nameY);
+                nameY += 80;
+            });
+            
+            // Snack Name
+            ctx.fillStyle = '#8B0000';
+            ctx.font = 'italic 500 40px Inter, sans-serif';
+            ctx.fillText(personality.snack, 540, nameY + 20);
+            
+            // Divider line
+            ctx.strokeStyle = '#FFD700';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(cardX + 100, nameY + 80);
+            ctx.lineTo(cardX + cardWidth - 100, nameY + 80);
+            ctx.stroke();
+            
+            let currentY = nameY + 150;
+            
+            // Try to load and draw the snack image
             const snackImg = new Image();
             snackImg.crossOrigin = "anonymous";
+            
             snackImg.onload = function() {
-                // Draw image in a circular frame
+                // Draw circular image
                 ctx.save();
                 ctx.beginPath();
-                ctx.arc(540, 520, 100, 0, Math.PI * 2);
+                ctx.arc(540, currentY + 120, 120, 0, Math.PI * 2);
+                ctx.closePath();
                 ctx.clip();
-                ctx.drawImage(snackImg, 440, 420, 200, 200);
+                ctx.drawImage(snackImg, 540 - 120, currentY, 240, 240);
                 ctx.restore();
                 
-                // Draw border around image
+                // Border around image
                 ctx.strokeStyle = '#FFD700';
-                ctx.lineWidth = 5;
+                ctx.lineWidth = 6;
                 ctx.beginPath();
-                ctx.arc(540, 520, 100, 0, Math.PI * 2);
+                ctx.arc(540, currentY + 120, 120, 0, Math.PI * 2);
                 ctx.stroke();
                 
-                finishShareImage();
+                continueDrawing(currentY + 280);
             };
+            
             snackImg.onerror = function() {
-                // Fallback to emoji if image fails to load
-                ctx.font = '200px Arial';
-                ctx.fillText(emoji, 540, 600);
-                finishShareImage();
+                // Fallback to emoji if image fails
+                ctx.font = '180px Arial';
+                ctx.fillText(personality.emoji, 540, currentY + 180);
+                continueDrawing(currentY + 280);
             };
+            
             snackImg.src = personality.image;
             
-            function finishShareImage() {
-                // Personality Type
+            function continueDrawing(startY) {
+                let y = startY;
+                
+                // Traits section header
                 ctx.fillStyle = '#8B0000';
-                ctx.font = 'bold 70px Georgia';
-                ctx.fillText(resultTypeName, 540, 750);
+                ctx.font = '700 36px Inter, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('Key Traits', 540, y);
                 
-                // Snack Name
-                ctx.fillStyle = '#DC143C';
-                ctx.font = 'italic 50px Georgia';
-                ctx.fillText(snackName, 540, 830);
+                y += 50;
                 
-                // Decorative line
-                ctx.strokeStyle = '#FFD700';
-                ctx.lineWidth = 3;
-                ctx.beginPath();
-                ctx.moveTo(240, 900);
-                ctx.lineTo(840, 900);
-                ctx.stroke();
-                
-                // Traits
-                ctx.fillStyle = '#4a3520';
-                ctx.font = '40px Georgia';
-                let yPos = 1000;
-                traits.forEach(trait => {
-                    // Trait background
-                    ctx.fillStyle = '#FFD700';
-                    const textWidth = ctx.measureText(trait).width;
-                    ctx.roundRect(540 - textWidth/2 - 30, yPos - 35, textWidth + 60, 60, 20);
+                // Trait pills
+                ctx.font = '600 28px Inter, sans-serif';
+                personality.traits.forEach((trait, index) => {
+                    const pillWidth = 400;
+                    const pillHeight = 50;
+                    const pillX = (1080 - pillWidth) / 2;
+                    
+                    // Pill background gradient
+                    const gradient = ctx.createLinearGradient(pillX, y, pillX + pillWidth, y);
+                    gradient.addColorStop(0, '#FFE5B4');
+                    gradient.addColorStop(1, '#FFD700');
+                    ctx.fillStyle = gradient;
+                    ctx.roundRect(pillX, y, pillWidth, pillHeight, 25);
                     ctx.fill();
                     
-                    // Trait text
+                    // Pill text
                     ctx.fillStyle = '#8B0000';
-                    ctx.fillText(trait, 540, yPos);
-                    yPos += 90;
+                    ctx.textAlign = 'center';
+                    ctx.fillText(trait, 540, y + 35);
+                    
+                    y += 65;
+                });
+                
+                y += 30;
+                
+                // Description section
+                ctx.fillStyle = '#8B0000';
+                ctx.font = '700 36px Inter, sans-serif';
+                ctx.fillText('Your CNY Personality', 540, y);
+                
+                y += 50;
+                
+                // Description text (word wrap)
+                ctx.font = '400 26px Inter, sans-serif';
+                ctx.fillStyle = '#2c1810';
+                ctx.textAlign = 'left';
+                
+                const maxWidth = cardWidth - 160;
+                const lineHeight = 38;
+                const words = personality.description.split(' ');
+                let line = '';
+                const startX = cardX + 80;
+                
+                words.forEach((word, index) => {
+                    const testLine = line + word + ' ';
+                    const metrics = ctx.measureText(testLine);
+                    
+                    if (metrics.width > maxWidth && line !== '') {
+                        ctx.fillText(line, startX, y);
+                        line = word + ' ';
+                        y += lineHeight;
+                    } else {
+                        line = testLine;
+                    }
+                });
+                ctx.fillText(line, startX, y);
+                
+                y += 80;
+                
+                // Compatibility section
+                ctx.fillStyle = '#8B0000';
+                ctx.font = '700 36px Inter, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('Compatibility', 540, y);
+                
+                y += 50;
+                
+                // Two columns for compatibility
+                const colWidth = (cardWidth - 200) / 2;
+                const leftColX = cardX + 80;
+                const rightColX = cardX + cardWidth / 2 + 20;
+                
+                // Friends column
+                ctx.fillStyle = '#2E7D32';
+                ctx.font = '700 28px Inter, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('Besties with 💚', leftColX + colWidth / 2, y);
+                
+                // Strangers column
+                ctx.fillStyle = '#C62828';
+                ctx.fillText("Doesn't vibe with 💔", rightColX + colWidth / 2, y);
+                
+                y += 50;
+                
+                ctx.font = '500 24px Inter, sans-serif';
+                
+                // Draw friends
+                let friendY = y;
+                personality.friends.forEach(friend => {
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                    ctx.roundRect(leftColX, friendY, colWidth, 50, 10);
+                    ctx.fill();
+                    
+                    ctx.strokeStyle = '#4CAF50';
+                    ctx.lineWidth = 4;
+                    ctx.beginPath();
+                    ctx.moveTo(leftColX, friendY + 10);
+                    ctx.lineTo(leftColX, friendY + 40);
+                    ctx.stroke();
+                    
+                    ctx.fillStyle = '#2c1810';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(friend.type, leftColX + colWidth / 2, friendY + 32);
+                    
+                    friendY += 65;
+                });
+                
+                // Draw strangers
+                let strangerY = y;
+                personality.strangers.forEach(stranger => {
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                    ctx.roundRect(rightColX, strangerY, colWidth, 50, 10);
+                    ctx.fill();
+                    
+                    ctx.strokeStyle = '#F44336';
+                    ctx.lineWidth = 4;
+                    ctx.beginPath();
+                    ctx.moveTo(rightColX, strangerY + 10);
+                    ctx.lineTo(rightColX, strangerY + 40);
+                    ctx.stroke();
+                    
+                    ctx.fillStyle = '#2c1810';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(stranger.type, rightColX + colWidth / 2, strangerY + 32);
+                    
+                    strangerY += 65;
                 });
                 
                 // Bottom text
                 ctx.fillStyle = '#8B0000';
-                ctx.font = 'italic 35px Georgia';
-                ctx.fillText('Discover your CNY personality', 540, 1600);
+                ctx.font = 'italic 500 32px Inter, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('Discover your CNY personality', 540, 1820);
                 
                 // Download
                 const link = document.createElement('a');
-                link.download = `cny-personality-${resultTypeName.toLowerCase().replace(/\s+/g, '-')}.png`;
-                link.href = canvas.toDataURL();
+                link.download = `cny-personality-${personality.name.toLowerCase().replace(/\s+/g, '-')}.png`;
+                link.href = canvas.toDataURL('image/png');
                 link.click();
             }
         }
