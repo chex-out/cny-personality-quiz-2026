@@ -30,6 +30,12 @@
             position: relative;
         }
 
+        body.no-scroll {
+            overflow: hidden;
+            height: 100vh;
+            padding: 10px;
+        }
+
         body::before {
             content: '';
             position: fixed;
@@ -211,35 +217,38 @@
 
         .results {
             display: none;
+            height: 100%;
         }
 
         .results.active {
-            display: block;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             animation: fadeIn 0.8s;
         }
 
         .result-header {
             text-align: center;
-            margin-bottom: 10px;
-            padding: 15px 10px;
+            margin-bottom: 8px;
+            padding: 10px 10px;
         }
 
         .result-label {
-            font-size: 0.85em;
+            font-size: 0.8em;
             color: #FFD700;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
 
         .result-title {
-            font-size: 1.6em;
+            font-size: 1.5em;
             color: #FFD700;
-            margin: 3px 0;
+            margin: 2px 0;
             font-weight: 800;
             line-height: 1.1;
         }
 
         .snack-name {
-            font-size: 0.9em;
+            font-size: 0.85em;
             color: #FFE5B4;
             font-style: italic;
         }
@@ -247,14 +256,14 @@
         .result-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 10px;
+            gap: 8px;
+            margin-top: 8px;
         }
 
         .result-card {
             background: rgba(255, 249, 230, 0.95);
-            border-radius: 10px;
-            padding: 12px;
+            border-radius: 8px;
+            padding: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
@@ -270,8 +279,8 @@
 
         .result-card h3 {
             color: #8B0000;
-            font-size: 0.9em;
-            margin-bottom: 8px;
+            font-size: 0.85em;
+            margin-bottom: 6px;
             text-align: center;
             font-weight: 700;
         }
@@ -279,8 +288,8 @@
         .snack-image-container {
             width: 100%;
             height: 100%;
-            min-height: 160px;
-            border-radius: 10px;
+            min-height: 140px;
+            border-radius: 8px;
             border: 3px solid #FFD700;
             background: #FFF;
             display: flex;
@@ -297,44 +306,44 @@
         }
 
         .snack-image-fallback {
-            font-size: 3.5em;
+            font-size: 3em;
             color: #DC143C;
         }
 
         .trait-pills {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 5px;
         }
 
         .trait-pill {
             background: linear-gradient(135deg, #FFE5B4, #FFD700);
-            padding: 6px 10px;
-            border-radius: 15px;
+            padding: 5px 8px;
+            border-radius: 12px;
             color: #8B0000;
             font-weight: 600;
             text-align: center;
-            font-size: 0.7em;
+            font-size: 0.65em;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .description-text {
-            line-height: 1.4;
+            line-height: 1.3;
             color: #2c1810;
             text-align: left;
-            font-size: 0.75em;
+            font-size: 0.7em;
         }
 
         .compat-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-top: 8px;
+            gap: 6px;
+            margin-top: 6px;
         }
 
         .compat-group h4 {
-            font-size: 0.8em;
-            margin-bottom: 6px;
+            font-size: 0.75em;
+            margin-bottom: 5px;
             text-align: center;
             font-weight: 700;
         }
@@ -350,15 +359,15 @@
         .compat-names {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 4px;
         }
 
         .compat-name {
             background: rgba(255, 255, 255, 0.9);
-            padding: 6px 8px;
-            border-radius: 8px;
+            padding: 5px 6px;
+            border-radius: 6px;
             text-align: center;
-            font-size: 0.65em;
+            font-size: 0.6em;
             color: #2c1810;
             font-weight: 500;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -740,7 +749,7 @@
                 emoji: "🏆",
                 image: "images/snacks/bak-kwa.png",
                 traits: ["Ambitious", "Competitive", "Image-conscious", "Goal-oriented", "High-performing"],
-                description: "You are the Bak Kwa of CNY—premium, meticulously crafted, and always the centerpiece. You invest deeply in your goals and present your best self to the world, arriving with impressive gifts and coordinating everything perfectly.",
+                description: "You are the Bak Kwa of CNY — premium, meticulously crafted, and always the centerpiece. You invest deeply in your goals and present your best self to the world, arriving with impressive gifts and coordinating everything perfectly.",
                 friends: [
                     { type: "The Catalyst", reason: "Both energetic and goal-oriented, push each other forward" },
                     { type: "The Analyst", reason: "Analyst provides strategic thinking to support Achiever's ambitions" }
@@ -772,7 +781,7 @@
                 emoji: "💡",
                 image: "images/snacks/kueh-lapis.png",
                 traits: ["Creative", "Forward-thinking", "Complex", "Visionary", "Unconventional"],
-                description: "You embody the intricate art of Kueh Lapis—multi-layered and requiring creativity. You approach life with vision, always thinking several steps ahead. You suggest new CNY traditions and find innovative ways to celebrate while honoring the past.",
+                description: "You embody the intricate art of Kueh Lapis — multi-layered and requiring creativity. You approach life with vision, always thinking several steps ahead. You suggest new CNY traditions and find innovative ways to celebrate while honoring the past.",
                 friends: [
                     { type: "The Adventurer", reason: "Both thrive on novelty and trying new approaches" },
                     { type: "The Idealist", reason: "Share vision for how things could be better and different" }
@@ -804,7 +813,7 @@
                 emoji: "🌟",
                 image: "images/snacks/prawn-rolls.png",
                 traits: ["Spontaneous", "Risk-taking", "Free-spirited", "Bold", "Experience-seeking"],
-                description: "You're the fiery Prawn Roll—bold, unexpected, and impossible to ignore. You bring excitement and spontaneity to every moment. You're the cousin who suggests impromptu road trips or tries daring combinations, inspiring others to step outside their comfort zones.",
+                description: "You're the fiery Prawn Roll — bold, unexpected, and impossible to ignore. You bring excitement and spontaneity to every moment. You're the cousin who suggests impromptu road trips or tries daring combinations, inspiring others to step outside their comfort zones.",
                 friends: [
                     { type: "The Innovator", reason: "Both embrace change and seek exciting experiences" },
                     { type: "The Entertainer", reason: "Share spontaneous energy and love of fun" }
@@ -836,7 +845,7 @@
                 emoji: "💫",
                 image: "images/snacks/love-letters.png",
                 traits: ["Principled", "Authentic", "Meaning-driven", "Philosophical", "Introspective"],
-                description: "You are the Love Letters of CNY—delicate and full of deeper meaning. You seek genuine meaning in traditions and relationships. You write heartfelt messages in red envelopes and create meaningful moments during celebrations.",
+                description: "You are the Love Letters of CNY — delicate and full of deeper meaning. You seek genuine meaning in traditions and relationships. You write heartfelt messages in red envelopes and create meaningful moments during celebrations.",
                 friends: [
                     { type: "The Harmonizer", reason: "Share desire for authentic, meaningful connections" },
                     { type: "The Innovator", reason: "Both envision better possibilities and pursue meaningful change" }
@@ -868,7 +877,7 @@
                 emoji: "🛡️",
                 image: "images/snacks/nian-gao.png",
                 traits: ["Loyal", "Responsible", "Security-focused", "Dependable", "Cautious"],
-                description: "You are the Nian Gao of CNY—symbolizing protection and prosperity for loved ones. You work tirelessly to ensure your family's wellbeing and security. You check on elderly relatives, ensure children's safety, and keep watchful eyes on everyone's welfare.",
+                description: "You are the Nian Gao of CNY — symbolizing protection and prosperity for loved ones. You work tirelessly to ensure your family's wellbeing and security. You check on elderly relatives, ensure children's safety, and keep watchful eyes on everyone's welfare.",
                 friends: [
                     { type: "The Traditionalist", reason: "Both value stability, loyalty, and time-tested ways" },
                     { type: "The Nurturer", reason: "Share commitment to caring for and supporting others" }
@@ -900,7 +909,7 @@
                 emoji: "✨",
                 image: "images/snacks/white-rabbit-candies.png",
                 traits: ["Optimistic", "Inspiring", "Enthusiastic", "Energetic", "Motivating"],
-                description: "You are White Rabbit Candies—bringing instant joy and infectious optimism wherever you go. You have the magical ability to lift spirits and inspire hope. You get everyone excited about traditions and spread contagious enthusiasm.",
+                description: "You are White Rabbit Candies — bringing instant joy and infectious optimism wherever you go. You have the magical ability to lift spirits and inspire hope. You get everyone excited about traditions and spread contagious enthusiasm.",
                 friends: [
                     { type: "The Achiever", reason: "Both energetic and forward-moving, motivate each other" },
                     { type: "The Entertainer", reason: "Share infectious enthusiasm and ability to inspire groups" }
@@ -977,8 +986,9 @@
         function showResults() {
             document.getElementById('quiz').style.display = 'none';
             
-            // Remove cream background for results page
+            // Remove cream background for results page and prevent scrolling
             document.querySelector('.container').classList.add('no-bg');
+            document.body.classList.add('no-scroll');
             
             // Find highest scoring personality type
             let maxScore = 0;
@@ -1058,8 +1068,9 @@
                 catalyst: 0
             };
             
-            // Restore cream background
+            // Restore cream background and scrolling
             document.querySelector('.container').classList.remove('no-bg');
+            document.body.classList.remove('no-scroll');
             
             document.getElementById('results').classList.remove('active');
             document.getElementById('intro').style.display = 'block';
