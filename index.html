@@ -30,7 +30,7 @@
             position: relative;
         }
 
-        body.no-scroll {
+        body.quiz-mode {
             overflow: hidden;
             height: 100vh;
             padding: 10px;
@@ -113,10 +113,13 @@
         .question-container {
             display: none;
             animation: fadeIn 0.5s;
+            height: 100%;
         }
 
         .question-container.active {
-            display: block;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         @keyframes fadeIn {
@@ -125,34 +128,43 @@
         }
 
         .question {
-            font-size: 1.3em;
-            margin-bottom: 20px;
+            font-size: 1.1em;
+            margin-bottom: 12px;
             color: #8B0000;
             font-weight: 700;
         }
 
         .question-text {
             font-style: italic;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             color: #4a3520;
-            line-height: 1.6;
+            line-height: 1.4;
+            font-size: 0.95em;
         }
 
         .options {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 10px;
+            margin-bottom: 15px;
         }
 
         .option {
             background: white;
-            padding: 20px 70px 20px 20px;
+            padding: 15px 60px 15px 15px;
             border-radius: 10px;
             border: 2px solid #FFD700;
             cursor: pointer;
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
+            font-size: 0.9em;
+        }
+
+        .option.selected {
+            background: #FFF8DC;
+            border-color: #DC143C;
+            box-shadow: 0 5px 15px rgba(220, 20, 60, 0.3);
         }
 
         .option::before {
@@ -167,6 +179,10 @@
             pointer-events: none;
         }
 
+        .option:hover::before, .option.selected::before {
+            opacity: 1;
+        }
+
         .option:hover {
             background: #FFF8DC;
             border-color: #DC143C;
@@ -174,16 +190,12 @@
             box-shadow: 0 5px 15px rgba(220, 20, 60, 0.2);
         }
 
-        .option:hover::before {
-            opacity: 1;
-        }
-
         .progress-bar {
             width: 100%;
-            height: 8px;
+            height: 6px;
             background: #FFE4B5;
             border-radius: 10px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             overflow: hidden;
         }
 
@@ -192,6 +204,47 @@
             background: linear-gradient(90deg, #FFD700, #DC143C);
             border-radius: 10px;
             transition: width 0.5s;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #DC143C, #8B0000);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 0.95em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(220, 20, 60, 0.3);
+            flex: 1;
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .nav-btn:not(:disabled):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(220, 20, 60, 0.4);
+        }
+
+        .nav-btn.back-btn {
+            background: linear-gradient(135deg, #8B7355, #6B5D4F);
+        }
+
+        .nav-btn.back-btn:not(:disabled):hover {
+            box-shadow: 0 6px 16px rgba(139, 115, 85, 0.4);
         }
 
         .start-btn, .restart-btn, .generate-image-btn {
@@ -935,6 +988,7 @@
         };
 
         let currentQuestion = 0;
+        let answers = {}; // Track selected answers for each question
         let scores = {
             harmonizer: 0,
             achiever: 0,
@@ -953,6 +1007,7 @@
         function startQuiz() {
             document.getElementById('intro').style.display = 'none';
             document.getElementById('quiz').style.display = 'block';
+            document.body.classList.add('quiz-mode');
             renderQuestion();
         }
 
@@ -963,45 +1018,80 @@
             const progress = ((currentQuestion + 1) / questions.length) * 100;
             document.getElementById('progressBar').style.width = progress + '%';
 
+            const selectedAnswer = answers[currentQuestion];
+
             container.innerHTML = `
                 <div class="question-container active">
                     <div class="question">${question.question}</div>
                     <div class="question-text">${question.text}</div>
                     <div class="options">
                         ${question.options.map((option, index) => `
-                            <div class="option" onclick="selectOption(${index})">
+                            <div class="option ${selectedAnswer === index ? 'selected' : ''}" onclick="selectOption(${index})">
                                 ${option.text}
                             </div>
                         `).join('')}
+                    </div>
+                    <div class="navigation-buttons">
+                        <button class="nav-btn back-btn" onclick="goBack()" ${currentQuestion === 0 ? 'disabled' : ''}>
+                            ← Back
+                        </button>
+                        <button class="nav-btn" onclick="goNext()" ${selectedAnswer === undefined ? 'disabled' : ''}>
+                            ${currentQuestion === questions.length - 1 ? 'See Results →' : 'Next →'}
+                        </button>
                     </div>
                 </div>
             `;
         }
 
         function selectOption(optionIndex) {
-            const question = questions[currentQuestion];
-            const selectedOption = question.options[optionIndex];
-            
-            // Add scores
-            for (let type in selectedOption.scores) {
-                scores[type] += selectedOption.scores[type];
-            }
+            answers[currentQuestion] = optionIndex;
+            renderQuestion(); // Re-render to show selected state and enable Next button
+        }
 
-            currentQuestion++;
-
-            if (currentQuestion < questions.length) {
+        function goBack() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
                 renderQuestion();
-            } else {
-                showResults();
             }
+        }
+
+        function goNext() {
+            if (answers[currentQuestion] !== undefined) {
+                if (currentQuestion < questions.length - 1) {
+                    currentQuestion++;
+                    renderQuestion();
+                } else {
+                    calculateScoresAndShowResults();
+                }
+            }
+        }
+
+        function calculateScoresAndShowResults() {
+            // Reset scores
+            for (let type in scores) {
+                scores[type] = 0;
+            }
+
+            // Calculate scores based on all answers
+            for (let questionIndex in answers) {
+                const question = questions[questionIndex];
+                const selectedOptionIndex = answers[questionIndex];
+                const selectedOption = question.options[selectedOptionIndex];
+
+                for (let type in selectedOption.scores) {
+                    scores[type] += selectedOption.scores[type];
+                }
+            }
+
+            showResults();
         }
 
         function showResults() {
             document.getElementById('quiz').style.display = 'none';
             
-            // Remove cream background for results page and prevent scrolling
+            // Remove cream background for results page
             document.querySelector('.container').classList.add('no-bg');
-            document.body.classList.add('no-scroll');
+            // Keep body in no-scroll mode (quiz-mode already applied)
             
             // Find highest scoring personality type
             let maxScore = 0;
@@ -1076,6 +1166,7 @@
 
         function restartQuiz() {
             currentQuestion = 0;
+            answers = {}; // Reset answers
             scores = {
                 harmonizer: 0,
                 achiever: 0,
@@ -1093,7 +1184,7 @@
             
             // Restore cream background and scrolling
             document.querySelector('.container').classList.remove('no-bg');
-            document.body.classList.remove('no-scroll');
+            document.body.classList.remove('quiz-mode');
             
             document.getElementById('results').classList.remove('active');
             document.getElementById('intro').style.display = 'block';
