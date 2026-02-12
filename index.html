@@ -469,13 +469,16 @@
 
         .cluster-title {
             color: #8B0000;
-            font-size: 0.75em;
+            font-size: 0.7em;
             font-weight: 700;
-            margin: 0;
+            margin: 0 0 2px 0;
         }
 
         .cluster-description {
-            display: none;
+            color: #6B5D4F;
+            font-size: 0.6em;
+            font-style: italic;
+            margin: 0;
         }
 
         .personality-cards {
@@ -496,9 +499,9 @@
         }
 
         .personality-card.user-type {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.4), rgba(255, 165, 0, 0.4));
-            border: 2px solid #FFD700;
-            box-shadow: 0 3px 10px rgba(255, 215, 0, 0.5);
+            background: linear-gradient(135deg, rgba(220, 20, 60, 0.15), rgba(255, 140, 0, 0.15));
+            border: 2px solid #DC143C;
+            box-shadow: 0 3px 10px rgba(220, 20, 60, 0.4);
         }
 
         .personality-card-image {
@@ -517,7 +520,7 @@
 
         .personality-card-snack {
             color: #DC143C;
-            font-size: 0.6em;
+            font-size: 0.55em;
             font-weight: 700;
             margin: 0 0 1px 0;
             line-height: 1.1;
@@ -525,7 +528,7 @@
 
         .personality-card-name {
             color: #8B0000;
-            font-size: 0.55em;
+            font-size: 0.5em;
             font-style: italic;
             margin: 0;
             line-height: 1.1;
@@ -552,19 +555,15 @@
             }
 
             .cluster-title {
-                font-size: 0.95em;
+                font-size: 0.85em;
             }
 
             .cluster-description {
-                display: block;
-                color: #6B5D4F;
-                font-size: 0.75em;
-                font-style: italic;
-                margin: 2px 0 0 0;
+                font-size: 0.7em;
             }
 
             .personality-cards {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(3, 1fr);
                 gap: 8px;
             }
 
@@ -573,17 +572,17 @@
             }
 
             .personality-card-image {
-                width: 65px;
-                height: 65px;
+                width: 70px;
+                height: 70px;
             }
 
             .personality-card-snack {
-                font-size: 0.75em;
+                font-size: 0.7em;
                 margin-bottom: 2px;
             }
 
             .personality-card-name {
-                font-size: 0.65em;
+                font-size: 0.6em;
             }
         }
             }
@@ -1126,22 +1125,22 @@
         const personalityClusters = {
             caregiving: {
                 name: "The Caregiving Circle",
-                description: "Warm hearts focused on harmony and nurturing",
+                description: "Focused on supporting others and creating harmony",
                 types: ["harmonizer", "nurturer", "protector"]
             },
             achievers: {
                 name: "The Achievement Squad",
-                description: "Driven individuals focused on success and progress",
+                description: "Driven by goals, progress, and making an impact",
                 types: ["achiever", "catalyst", "analyst"]
             },
             creatives: {
                 name: "The Creative Collective",
-                description: "Innovative spirits who value originality and expression",
+                description: "Value originality, self-expression, and innovation",
                 types: ["innovator", "individualist", "entertainer"]
             },
             principled: {
                 name: "The Principled Path",
-                description: "Thoughtful souls guided by values and tradition",
+                description: "Guided by values, meaning, and deeper purpose",
                 types: ["traditionalist", "idealist", "adventurer"]
             }
         };
