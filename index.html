@@ -508,6 +508,48 @@
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             text-align: center;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .personality-card.user-type {
+            border: 2px solid #FFD700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6), 0 0 25px rgba(255, 215, 0, 0.3);
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .personality-card.user-type::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 215, 0, 0.3),
+                transparent
+            );
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 15px rgba(255, 215, 0, 0.6), 0 0 25px rgba(255, 215, 0, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 35px rgba(255, 215, 0, 0.5);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translate(-100%, -100%) rotate(45deg);
+            }
+            100% {
+                transform: translate(100%, 100%) rotate(45deg);
+            }
         }
 
         .personality-card-image {
@@ -525,12 +567,6 @@
             font-weight: 700;
             margin: 0 0 1px 0;
             line-height: 1.05;
-        }
-
-        .user-indicator {
-            color: #8B0000;
-            font-size: 0.8em;
-            font-weight: 600;
         }
 
         .personality-card-name {
@@ -1378,12 +1414,12 @@
                     const isUserType = typeKey === currentType;
                     
                     html += `
-                        <div class="personality-card">
+                        <div class="personality-card ${isUserType ? 'user-type' : ''}">
                             <img src="${personality.image}" 
                                  alt="${personality.snack}" 
                                  class="personality-card-image"
                                  onerror="this.style.display='none';">
-                            <p class="personality-card-snack">${personality.snack}${isUserType ? ' <span class="user-indicator">(you)</span>' : ''}</p>
+                            <p class="personality-card-snack">${personality.snack}</p>
                             <p class="personality-card-name">${personality.name}</p>
                         </div>
                     `;
