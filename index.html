@@ -450,40 +450,52 @@
         }
 
         .cluster-group {
-            margin-bottom: 6px;
-        }
-
-        .cluster-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 4px;
+            margin-bottom: 8px;
         }
 
         .cluster-header {
-            background: linear-gradient(135deg, #FFE5B4, #FFD700);
-            padding: 6px;
+            padding: 6px 8px;
             border-radius: 6px;
+            margin-bottom: 4px;
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        }
+
+        .cluster-header.caregiving {
+            background: linear-gradient(135deg, #FFE5E5, #FFB3BA);
+        }
+
+        .cluster-header.achievers {
+            background: linear-gradient(135deg, #FFF4CC, #FFD966);
+        }
+
+        .cluster-header.creatives {
+            background: linear-gradient(135deg, #E5F0FF, #B3D9FF);
+        }
+
+        .cluster-header.principled {
+            background: linear-gradient(135deg, #F0E5FF, #D9B3FF);
         }
 
         .cluster-title {
             color: #8B0000;
-            font-size: 0.4em;
+            font-size: 0.5em;
             font-weight: 700;
             margin: 0 0 2px 0;
-            line-height: 1.2;
+            line-height: 1.1;
         }
 
         .cluster-description {
             color: #6B5D4F;
-            font-size: 0.3em;
+            font-size: 0.4em;
             font-style: italic;
             margin: 0;
-            line-height: 1.2;
+            line-height: 1.1;
+        }
+
+        .personality-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
         }
 
         .personality-card {
@@ -498,40 +510,35 @@
             justify-content: center;
         }
 
-        .personality-card.user-type {
-            background: linear-gradient(135deg, rgba(220, 20, 60, 0.15), rgba(255, 140, 0, 0.15));
-            border: 1.5px solid #DC143C;
-            box-shadow: 0 2px 6px rgba(220, 20, 60, 0.4);
-        }
-
         .personality-card-image {
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             border-radius: 4px;
             border: 1.5px solid #FFD700;
             object-fit: cover;
             margin-bottom: 2px;
         }
 
-        .personality-card.user-type .personality-card-image {
-            border-color: #DC143C;
-            border-width: 2px;
-        }
-
         .personality-card-snack {
             color: #DC143C;
-            font-size: 0.4em;
+            font-size: 0.45em;
             font-weight: 700;
             margin: 0 0 1px 0;
-            line-height: 1.1;
+            line-height: 1.05;
+        }
+
+        .user-indicator {
+            color: #8B0000;
+            font-size: 0.8em;
+            font-weight: 600;
         }
 
         .personality-card-name {
             color: #8B0000;
-            font-size: 0.3em;
+            font-size: 0.38em;
             font-style: italic;
             margin: 0;
-            line-height: 1.1;
+            line-height: 1.05;
         }
 
         @media (min-width: 769px) {
@@ -546,24 +553,25 @@
             }
 
             .cluster-group {
-                margin-bottom: 10px;
-            }
-
-            .cluster-grid {
-                gap: 6px;
+                margin-bottom: 12px;
             }
 
             .cluster-header {
-                padding: 10px;
+                padding: 10px 12px;
+                margin-bottom: 6px;
             }
 
             .cluster-title {
-                font-size: 0.75em;
+                font-size: 0.85em;
                 margin-bottom: 3px;
             }
 
             .cluster-description {
-                font-size: 0.6em;
+                font-size: 0.7em;
+            }
+
+            .personality-cards {
+                gap: 8px;
             }
 
             .personality-card {
@@ -571,8 +579,8 @@
             }
 
             .personality-card-image {
-                width: 70px;
-                height: 70px;
+                width: 65px;
+                height: 65px;
                 border-width: 2px;
                 margin-bottom: 4px;
             }
@@ -1357,26 +1365,25 @@
                 
                 html += `
                     <div class="cluster-group">
-                        <div class="cluster-grid">
-                            <!-- Cluster header in first square -->
-                            <div class="cluster-header">
-                                <h3 class="cluster-title">${cluster.name}</h3>
-                                <p class="cluster-description">${cluster.description}</p>
-                            </div>
+                        <div class="cluster-header ${clusterKey}">
+                            <h3 class="cluster-title">${cluster.name}</h3>
+                            <p class="cluster-description">${cluster.description}</p>
+                        </div>
+                        <div class="personality-cards">
                 `;
                 
-                // Add personality cards for this cluster (remaining 3 squares)
+                // Add personality cards for this cluster (3 personalities)
                 cluster.types.forEach(typeKey => {
                     const personality = personalityTypes[typeKey];
                     const isUserType = typeKey === currentType;
                     
                     html += `
-                        <div class="personality-card ${isUserType ? 'user-type' : ''}">
+                        <div class="personality-card">
                             <img src="${personality.image}" 
                                  alt="${personality.snack}" 
                                  class="personality-card-image"
                                  onerror="this.style.display='none';">
-                            <p class="personality-card-snack">${personality.snack}</p>
+                            <p class="personality-card-snack">${personality.snack}${isUserType ? ' <span class="user-indicator">(you)</span>' : ''}</p>
                             <p class="personality-card-name">${personality.name}</p>
                         </div>
                     `;
