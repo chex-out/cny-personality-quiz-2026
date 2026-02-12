@@ -36,12 +36,6 @@
             padding: 10px;
         }
 
-        body.allow-scroll {
-            overflow-y: auto;
-            height: auto;
-            min-height: 100vh;
-        }
-
         body::before {
             content: '';
             position: fixed;
@@ -237,7 +231,7 @@
             box-shadow: 0 6px 16px rgba(139, 115, 85, 0.4);
         }
 
-        .start-btn, .restart-btn, .generate-image-btn {
+        .start-btn, .restart-btn {
             background: linear-gradient(135deg, #DC143C, #8B0000);
             color: white;
             border: none;
@@ -253,7 +247,7 @@
             box-shadow: 0 5px 15px rgba(220, 20, 60, 0.3);
         }
 
-        .start-btn:hover, .restart-btn:hover, .generate-image-btn:hover {
+        .start-btn:hover, .restart-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(220, 20, 60, 0.4);
         }
@@ -456,48 +450,52 @@
         }
 
         .cluster-group {
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+        }
+
+        .cluster-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4px;
         }
 
         .cluster-header {
             background: linear-gradient(135deg, #FFE5B4, #FFD700);
-            padding: 3px 6px;
-            border-radius: 4px;
-            margin-bottom: 3px;
+            padding: 6px;
+            border-radius: 6px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .cluster-title {
             color: #8B0000;
-            font-size: 0.6em;
+            font-size: 0.4em;
             font-weight: 700;
-            margin: 0 0 1px 0;
-            line-height: 1.1;
+            margin: 0 0 2px 0;
+            line-height: 1.2;
         }
 
         .cluster-description {
             color: #6B5D4F;
-            font-size: 0.5em;
+            font-size: 0.3em;
             font-style: italic;
             margin: 0;
-            line-height: 1.1;
-        }
-
-        .personality-cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 3px;
+            line-height: 1.2;
         }
 
         .personality-card {
             background: rgba(255, 249, 230, 0.95);
-            border-radius: 4px;
-            padding: 3px;
+            border-radius: 6px;
+            padding: 4px;
             display: flex;
             flex-direction: column;
             align-items: center;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             text-align: center;
+            justify-content: center;
         }
 
         .personality-card.user-type {
@@ -507,8 +505,8 @@
         }
 
         .personality-card-image {
-            width: 35px;
-            height: 35px;
+            width: 40px;
+            height: 40px;
             border-radius: 4px;
             border: 1.5px solid #FFD700;
             object-fit: cover;
@@ -522,18 +520,18 @@
 
         .personality-card-snack {
             color: #DC143C;
-            font-size: 0.5em;
+            font-size: 0.4em;
             font-weight: 700;
-            margin: 0;
-            line-height: 1;
+            margin: 0 0 1px 0;
+            line-height: 1.1;
         }
 
         .personality-card-name {
             color: #8B0000;
-            font-size: 0.45em;
+            font-size: 0.3em;
             font-style: italic;
             margin: 0;
-            line-height: 1;
+            line-height: 1.1;
         }
 
         @media (min-width: 769px) {
@@ -548,40 +546,35 @@
             }
 
             .cluster-group {
-                margin-bottom: 8px;
+                margin-bottom: 10px;
             }
 
-            .cluster-header {
-                padding: 6px 10px;
-                margin-bottom: 5px;
-                border-radius: 6px;
-            }
-
-            .cluster-title {
-                font-size: 0.8em;
-                margin-bottom: 2px;
-            }
-
-            .cluster-description {
-                font-size: 0.65em;
-            }
-
-            .personality-cards {
-                grid-template-columns: repeat(3, 1fr);
+            .cluster-grid {
                 gap: 6px;
             }
 
+            .cluster-header {
+                padding: 10px;
+            }
+
+            .cluster-title {
+                font-size: 0.75em;
+                margin-bottom: 3px;
+            }
+
+            .cluster-description {
+                font-size: 0.6em;
+            }
+
             .personality-card {
-                padding: 6px;
-                border-radius: 6px;
+                padding: 8px;
             }
 
             .personality-card-image {
-                width: 60px;
-                height: 60px;
-                border-radius: 6px;
+                width: 70px;
+                height: 70px;
                 border-width: 2px;
-                margin-bottom: 3px;
+                margin-bottom: 4px;
             }
 
             .personality-card.user-type .personality-card-image {
@@ -589,52 +582,13 @@
             }
 
             .personality-card-snack {
-                font-size: 0.65em;
-                margin-bottom: 1px;
+                font-size: 0.7em;
+                margin-bottom: 2px;
             }
 
             .personality-card-name {
-                font-size: 0.55em;
+                font-size: 0.6em;
             }
-        }
-            }
-
-            .cluster-title {
-                font-size: 1.3em;
-            }
-
-            .cluster-description {
-                font-size: 0.95em;
-            }
-
-            .personality-cards {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .personality-card {
-                padding: 15px;
-            }
-
-            .personality-card-image {
-                width: 80px;
-                height: 80px;
-            }
-
-            .personality-card-snack {
-                font-size: 1.1em;
-            }
-
-            .personality-card-name {
-                font-size: 0.9em;
-            }
-
-            .mini-trait {
-                font-size: 0.75em;
-                padding: 4px 10px;
-            }
-        }
-
-        @media (min-width: 769px) {
             .result-header {
                 padding: 30px;
                 margin-bottom: 30px;
@@ -723,15 +677,7 @@
             }
         }
 
-        #shareCanvas {
-            display: none;
-        }
 
-        .generate-image-btn {
-            background: linear-gradient(135deg, #FFD700, #FFA500);
-            color: #8B0000;
-            margin-top: 20px;
-        }
 
         @media (max-width: 600px) {
             h1 {
@@ -810,7 +756,6 @@
         </div>
     </div>
 
-    <canvas id="shareCanvas" width="1080" height="1920" style="display: none;"></canvas>
 
     <script>
         const questions = [
@@ -1412,14 +1357,15 @@
                 
                 html += `
                     <div class="cluster-group">
-                        <div class="cluster-header">
-                            <h3 class="cluster-title">${cluster.name}</h3>
-                            <p class="cluster-description">${cluster.description}</p>
-                        </div>
-                        <div class="personality-cards">
+                        <div class="cluster-grid">
+                            <!-- Cluster header in first square -->
+                            <div class="cluster-header">
+                                <h3 class="cluster-title">${cluster.name}</h3>
+                                <p class="cluster-description">${cluster.description}</p>
+                            </div>
                 `;
                 
-                // Add personality cards for this cluster (including user's type)
+                // Add personality cards for this cluster (remaining 3 squares)
                 cluster.types.forEach(typeKey => {
                     const personality = personalityTypes[typeKey];
                     const isUserType = typeKey === currentType;
@@ -1471,255 +1417,6 @@
             document.getElementById('intro').style.display = 'block';
         }
 
-        function generateShareImage() {
-            const canvas = document.getElementById('shareCanvas');
-            const ctx = canvas.getContext('2d');
-            
-            // Get current result data
-            let maxScore = 0;
-            let resultType = '';
-            
-            for (let type in scores) {
-                if (scores[type] > maxScore) {
-                    maxScore = scores[type];
-                    resultType = type;
-                }
-            }
-            
-            const personality = personalityTypes[resultType];
-            
-            // Clear canvas
-            ctx.fillStyle = '#8B0000';
-            ctx.fillRect(0, 0, 1080, 1920);
-            
-            // Main content card
-            const cardPadding = 60;
-            const cardX = cardPadding;
-            const cardY = 150;
-            const cardWidth = 1080 - (cardPadding * 2);
-            const cardHeight = 1620;
-            
-            // Card background
-            ctx.fillStyle = '#FFF9E6';
-            ctx.roundRect(cardX, cardY, cardWidth, cardHeight, 20);
-            ctx.fill();
-            
-            // Title
-            ctx.fillStyle = '#8B0000';
-            ctx.font = '700 48px Inter, sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText('You Are...', 540, 250);
-            
-            // Personality Name
-            ctx.fillStyle = '#DC143C';
-            ctx.font = '800 72px Inter, sans-serif';
-            const nameLines = personality.name.split(' ');
-            let nameY = 340;
-            nameLines.forEach(line => {
-                ctx.fillText(line, 540, nameY);
-                nameY += 80;
-            });
-            
-            // Snack Name
-            ctx.fillStyle = '#8B0000';
-            ctx.font = 'italic 500 40px Inter, sans-serif';
-            ctx.fillText(personality.snack, 540, nameY + 20);
-            
-            // Divider line
-            ctx.strokeStyle = '#FFD700';
-            ctx.lineWidth = 3;
-            ctx.beginPath();
-            ctx.moveTo(cardX + 100, nameY + 80);
-            ctx.lineTo(cardX + cardWidth - 100, nameY + 80);
-            ctx.stroke();
-            
-            let currentY = nameY + 150;
-            
-            // Try to load and draw the snack image
-            const snackImg = new Image();
-            snackImg.crossOrigin = "anonymous";
-            
-            snackImg.onload = function() {
-                // Draw circular image
-                ctx.save();
-                ctx.beginPath();
-                ctx.arc(540, currentY + 120, 120, 0, Math.PI * 2);
-                ctx.closePath();
-                ctx.clip();
-                ctx.drawImage(snackImg, 540 - 120, currentY, 240, 240);
-                ctx.restore();
-                
-                // Border around image
-                ctx.strokeStyle = '#FFD700';
-                ctx.lineWidth = 6;
-                ctx.beginPath();
-                ctx.arc(540, currentY + 120, 120, 0, Math.PI * 2);
-                ctx.stroke();
-                
-                continueDrawing(currentY + 280);
-            };
-            
-            snackImg.onerror = function() {
-                // Fallback to emoji if image fails
-                ctx.font = '180px Arial';
-                ctx.fillText(personality.emoji, 540, currentY + 180);
-                continueDrawing(currentY + 280);
-            };
-            
-            snackImg.src = personality.image;
-            
-            function continueDrawing(startY) {
-                let y = startY;
-                
-                // Traits section header
-                ctx.fillStyle = '#8B0000';
-                ctx.font = '700 36px Inter, sans-serif';
-                ctx.textAlign = 'center';
-                ctx.fillText('Key Traits', 540, y);
-                
-                y += 50;
-                
-                // Trait pills
-                ctx.font = '600 28px Inter, sans-serif';
-                personality.traits.forEach((trait, index) => {
-                    const pillWidth = 400;
-                    const pillHeight = 50;
-                    const pillX = (1080 - pillWidth) / 2;
-                    
-                    // Pill background gradient
-                    const gradient = ctx.createLinearGradient(pillX, y, pillX + pillWidth, y);
-                    gradient.addColorStop(0, '#FFE5B4');
-                    gradient.addColorStop(1, '#FFD700');
-                    ctx.fillStyle = gradient;
-                    ctx.roundRect(pillX, y, pillWidth, pillHeight, 25);
-                    ctx.fill();
-                    
-                    // Pill text
-                    ctx.fillStyle = '#8B0000';
-                    ctx.textAlign = 'center';
-                    ctx.fillText(trait, 540, y + 35);
-                    
-                    y += 65;
-                });
-                
-                y += 30;
-                
-                // Description section
-                ctx.fillStyle = '#8B0000';
-                ctx.font = '700 36px Inter, sans-serif';
-                ctx.fillText('Your CNY Personality', 540, y);
-                
-                y += 50;
-                
-                // Description text (word wrap)
-                ctx.font = '400 26px Inter, sans-serif';
-                ctx.fillStyle = '#2c1810';
-                ctx.textAlign = 'left';
-                
-                const maxWidth = cardWidth - 160;
-                const lineHeight = 38;
-                const words = personality.description.split(' ');
-                let line = '';
-                const startX = cardX + 80;
-                
-                words.forEach((word, index) => {
-                    const testLine = line + word + ' ';
-                    const metrics = ctx.measureText(testLine);
-                    
-                    if (metrics.width > maxWidth && line !== '') {
-                        ctx.fillText(line, startX, y);
-                        line = word + ' ';
-                        y += lineHeight;
-                    } else {
-                        line = testLine;
-                    }
-                });
-                ctx.fillText(line, startX, y);
-                
-                y += 80;
-                
-                // Compatibility section
-                ctx.fillStyle = '#8B0000';
-                ctx.font = '700 36px Inter, sans-serif';
-                ctx.textAlign = 'center';
-                ctx.fillText('Compatibility', 540, y);
-                
-                y += 50;
-                
-                // Two columns for compatibility
-                const colWidth = (cardWidth - 200) / 2;
-                const leftColX = cardX + 80;
-                const rightColX = cardX + cardWidth / 2 + 20;
-                
-                // Friends column
-                ctx.fillStyle = '#2E7D32';
-                ctx.font = '700 28px Inter, sans-serif';
-                ctx.textAlign = 'center';
-                ctx.fillText('Besties with 💚', leftColX + colWidth / 2, y);
-                
-                // Strangers column
-                ctx.fillStyle = '#C62828';
-                ctx.fillText("Doesn't vibe with 💔", rightColX + colWidth / 2, y);
-                
-                y += 50;
-                
-                ctx.font = '500 24px Inter, sans-serif';
-                
-                // Draw friends
-                let friendY = y;
-                personality.friends.forEach(friend => {
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                    ctx.roundRect(leftColX, friendY, colWidth, 50, 10);
-                    ctx.fill();
-                    
-                    ctx.strokeStyle = '#4CAF50';
-                    ctx.lineWidth = 4;
-                    ctx.beginPath();
-                    ctx.moveTo(leftColX, friendY + 10);
-                    ctx.lineTo(leftColX, friendY + 40);
-                    ctx.stroke();
-                    
-                    ctx.fillStyle = '#2c1810';
-                    ctx.textAlign = 'center';
-                    ctx.fillText(friend.type, leftColX + colWidth / 2, friendY + 32);
-                    
-                    friendY += 65;
-                });
-                
-                // Draw strangers
-                let strangerY = y;
-                personality.strangers.forEach(stranger => {
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                    ctx.roundRect(rightColX, strangerY, colWidth, 50, 10);
-                    ctx.fill();
-                    
-                    ctx.strokeStyle = '#F44336';
-                    ctx.lineWidth = 4;
-                    ctx.beginPath();
-                    ctx.moveTo(rightColX, strangerY + 10);
-                    ctx.lineTo(rightColX, strangerY + 40);
-                    ctx.stroke();
-                    
-                    ctx.fillStyle = '#2c1810';
-                    ctx.textAlign = 'center';
-                    ctx.fillText(stranger.type, rightColX + colWidth / 2, strangerY + 32);
-                    
-                    strangerY += 65;
-                });
-                
-                // Bottom text
-                ctx.fillStyle = '#8B0000';
-                ctx.font = 'italic 500 32px Inter, sans-serif';
-                ctx.textAlign = 'center';
-                ctx.fillText('Discover your CNY personality', 540, 1820);
-                
-                // Download
-                const link = document.createElement('a');
-                link.download = `cny-personality-${personality.name.toLowerCase().replace(/\s+/g, '-')}.png`;
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-            }
-        }
 
         // Polyfill for roundRect if needed
         if (!CanvasRenderingContext2D.prototype.roundRect) {
