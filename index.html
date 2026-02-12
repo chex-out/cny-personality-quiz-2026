@@ -36,6 +36,12 @@
             padding: 10px;
         }
 
+        body.allow-scroll {
+            overflow-y: auto;
+            height: auto;
+            min-height: 100vh;
+        }
+
         body::before {
             content: '';
             position: fixed;
@@ -419,6 +425,204 @@
             border-left: 3px solid #F44336;
         }
 
+        .explore-btn {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #8B0000;
+            border: none;
+            padding: 10px 20px;
+            font-size: 0.85em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+            margin: 10px auto;
+            display: block;
+        }
+
+        .explore-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 215, 0, 0.4);
+        }
+
+        .other-types-section {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .other-types-section.active {
+            display: block;
+        }
+
+        .cluster-group {
+            margin-bottom: 8px;
+        }
+
+        .cluster-header {
+            background: linear-gradient(135deg, #FFE5B4, #FFD700);
+            padding: 5px 10px;
+            border-radius: 6px;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .cluster-title {
+            color: #8B0000;
+            font-size: 0.75em;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .cluster-description {
+            display: none;
+        }
+
+        .personality-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+        }
+
+        .personality-card {
+            background: rgba(255, 249, 230, 0.95);
+            border-radius: 6px;
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .personality-card.user-type {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.4), rgba(255, 165, 0, 0.4));
+            border: 2px solid #FFD700;
+            box-shadow: 0 3px 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .personality-card-image {
+            width: 45px;
+            height: 45px;
+            border-radius: 6px;
+            border: 2px solid #FFD700;
+            object-fit: cover;
+            margin-bottom: 3px;
+        }
+
+        .personality-card.user-type .personality-card-image {
+            border-color: #DC143C;
+            border-width: 3px;
+        }
+
+        .personality-card-snack {
+            color: #DC143C;
+            font-size: 0.6em;
+            font-weight: 700;
+            margin: 0 0 1px 0;
+            line-height: 1.1;
+        }
+
+        .personality-card-name {
+            color: #8B0000;
+            font-size: 0.55em;
+            font-style: italic;
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        @media (min-width: 769px) {
+            .explore-btn {
+                font-size: 1em;
+                padding: 12px 24px;
+                margin: 15px auto;
+            }
+
+            .other-types-section {
+                margin-top: 15px;
+            }
+
+            .cluster-group {
+                margin-bottom: 12px;
+            }
+
+            .cluster-header {
+                padding: 8px 12px;
+                margin-bottom: 8px;
+            }
+
+            .cluster-title {
+                font-size: 0.95em;
+            }
+
+            .cluster-description {
+                display: block;
+                color: #6B5D4F;
+                font-size: 0.75em;
+                font-style: italic;
+                margin: 2px 0 0 0;
+            }
+
+            .personality-cards {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
+            }
+
+            .personality-card {
+                padding: 8px;
+            }
+
+            .personality-card-image {
+                width: 65px;
+                height: 65px;
+            }
+
+            .personality-card-snack {
+                font-size: 0.75em;
+                margin-bottom: 2px;
+            }
+
+            .personality-card-name {
+                font-size: 0.65em;
+            }
+        }
+            }
+
+            .cluster-title {
+                font-size: 1.3em;
+            }
+
+            .cluster-description {
+                font-size: 0.95em;
+            }
+
+            .personality-cards {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .personality-card {
+                padding: 15px;
+            }
+
+            .personality-card-image {
+                width: 80px;
+                height: 80px;
+            }
+
+            .personality-card-snack {
+                font-size: 1.1em;
+            }
+
+            .personality-card-name {
+                font-size: 0.9em;
+            }
+
+            .mini-trait {
+                font-size: 0.75em;
+                padding: 4px 10px;
+            }
+        }
+
         @media (min-width: 769px) {
             .result-header {
                 padding: 30px;
@@ -587,6 +791,10 @@
                         <div id="compatibility"></div>
                     </div>
                 </div>
+
+                <button class="explore-btn" onclick="toggleOtherTypes()">✨ Explore Other Personality Types</button>
+
+                <div id="otherTypes" class="other-types-section"></div>
             </div>
         </div>
     </div>
@@ -914,6 +1122,30 @@
             }
         };
 
+        // Personality clusters for grouping compatible types
+        const personalityClusters = {
+            caregiving: {
+                name: "The Caregiving Circle",
+                description: "Warm hearts focused on harmony and nurturing",
+                types: ["harmonizer", "nurturer", "protector"]
+            },
+            achievers: {
+                name: "The Achievement Squad",
+                description: "Driven individuals focused on success and progress",
+                types: ["achiever", "catalyst", "analyst"]
+            },
+            creatives: {
+                name: "The Creative Collective",
+                description: "Innovative spirits who value originality and expression",
+                types: ["innovator", "individualist", "entertainer"]
+            },
+            principled: {
+                name: "The Principled Path",
+                description: "Thoughtful souls guided by values and tradition",
+                types: ["traditionalist", "idealist", "adventurer"]
+            }
+        };
+
         let currentQuestion = 0;
         let answers = {}; // Track selected answers for each question
         let scores = {
@@ -1120,6 +1352,86 @@
             document.getElementById('compatibility').innerHTML = compatHtml;
             
             document.getElementById('results').classList.add('active');
+        }
+
+        function toggleOtherTypes() {
+            const section = document.getElementById('otherTypes');
+            const resultGrid = document.querySelector('.result-grid');
+            const resultHeader = document.querySelector('.result-header');
+            const exploreBtn = document.querySelector('.explore-btn');
+            const isActive = section.classList.contains('active');
+            
+            if (isActive) {
+                // Show main results, hide other types
+                section.classList.remove('active');
+                resultGrid.style.display = 'grid';
+                resultHeader.style.display = 'block';
+                exploreBtn.textContent = '✨ Explore Other Personality Types';
+            } else {
+                // Hide main results, show other types
+                // Generate content if not already generated
+                if (!section.innerHTML) {
+                    generateOtherTypesContent();
+                }
+                section.classList.add('active');
+                resultGrid.style.display = 'none';
+                resultHeader.style.display = 'none';
+                exploreBtn.textContent = '← Back to Your Results';
+            }
+        }
+
+        function generateOtherTypesContent() {
+            const section = document.getElementById('otherTypes');
+            
+            // Get current user's personality type
+            let maxScore = 0;
+            let currentType = '';
+            for (let type in scores) {
+                if (scores[type] > maxScore) {
+                    maxScore = scores[type];
+                    currentType = type;
+                }
+            }
+            
+            let html = '';
+            
+            // Generate each cluster
+            for (let clusterKey in personalityClusters) {
+                const cluster = personalityClusters[clusterKey];
+                
+                html += `
+                    <div class="cluster-group">
+                        <div class="cluster-header">
+                            <h3 class="cluster-title">${cluster.name}</h3>
+                            <p class="cluster-description">${cluster.description}</p>
+                        </div>
+                        <div class="personality-cards">
+                `;
+                
+                // Add personality cards for this cluster (including user's type)
+                cluster.types.forEach(typeKey => {
+                    const personality = personalityTypes[typeKey];
+                    const isUserType = typeKey === currentType;
+                    
+                    html += `
+                        <div class="personality-card ${isUserType ? 'user-type' : ''}">
+                            <img src="${personality.image}" 
+                                 alt="${personality.snack}" 
+                                 class="personality-card-image"
+                                 onerror="this.style.display='none';">
+                            <p class="personality-card-snack">${personality.snack}</p>
+                            <p class="personality-card-name">${personality.name}</p>
+                        </div>
+                    `;
+                });
+                
+                html += `
+                        </div>
+                    </div>
+                `;
+            }
+            
+            section.innerHTML = html;
         }
 
         function restartQuiz() {
